@@ -1,4 +1,3 @@
-import axios from "axios"
 import someCoolImage from "data-base64:~/../assets/Binary code.mp4"
 import { Moon, Sparkles } from "lucide-react"
 import { useEffect, useState } from "react"
@@ -12,16 +11,26 @@ export const CountButton = () => {
     })
   }, [])
 
-  const sendRequest = () => {
+  const sendRequest = async () => {
     console.log("no hi")
     if (url) {
-      // console.log("hi")
-      axios
-        .post("http://localhost:5000/scrape", {
-          url: url
+      console.log("hi")
+      try {
+        const response = await fetch("http://127.0.0.1:8000/scrape", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json;charset=utf-8",
+            "Access-Control-Allow-Origin": "http://127.0.0.1:8000"
+          },
+          body: JSON.stringify({ url: url })
         })
-        .then((response) => setUrl("Success"))
-        .catch((error) => console.error(error))
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+        setUrl("Success")
+      } catch (error) {
+        console.error(error)
+      }
     }
   }
 
