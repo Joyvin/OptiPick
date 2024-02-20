@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "flask-dev": "FLASK_DEBUG=1 python3 -m flask --app src/app/api/index run -p 8000 --reload",
+    "next-dev": "next dev",
+    "dev": "concurrently \"npm run next-dev\" \"npm run flask-dev\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -15,6 +17,8 @@
     "@heroicons/react": "^2.1.1",
     "@remixicon/react": "^4.1.1",
     "@tremor/react": "^3.14.0",
+    "axios": "^1.6.7",
+    "concurrently": "^8.2.2",
     "dotenv": "^16.4.5",
     "lucide-react": "^0.334.0",
     "markdown-it": "^14.0.0",

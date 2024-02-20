@@ -27,7 +27,6 @@ export const CountButton = () => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`)
         }
-        setUrl("Success")
       } catch (error) {
         console.error(error)
       }

@@ -101,9 +101,15 @@ async def scrape(item: Item):
         raise HTTPException(status_code=400, detail="URL not provided")
     # Your scraping logic here
     print(f"Scraping {item.url}")
+    myUrl = item.url
+    myResponse = requests.get(myUrl)
+    soup = BeautifulSoup(myResponse.text, 'html.parser')
+    reviewEle = soup.findAll('span', {'class': 'review-text-content'})
+    review = [i.text.replace("\n", '') for i in reviewEle]
+
     # Assuming 'result' is the output of your scraping logic
     result = "Scraped data"
-    return {"message": f"Scraping {item.url}", "data": result}
+    return {"message": f"Scraping {item.url}", "data": str(soup)}
 
 
 # return analysis
