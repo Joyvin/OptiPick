@@ -15,8 +15,8 @@ app.post("/endpoint", async (req, res) => {
     url: req.body.url,
   });
   console.log(response.data);
-
-  res.status(200).send("Received!");
+  console.log(response);
+  res.status(200).send(response);
 });
 
 app.listen(port, () => {
