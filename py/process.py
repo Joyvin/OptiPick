@@ -101,8 +101,12 @@ async def scrape(item: Item):
         raise HTTPException(status_code=400, detail="URL not provided")
     # Your scraping logic here
     print(f"Scraping {item.url}")
-    return {"message": f"Scraping {item.url}"}
-    # return analysis
+    # Assuming 'result' is the output of your scraping logic
+    result = "Scraped data"
+    return {"message": f"Scraping {item.url}", "data": result}
+
+
+# return analysis
 
 
 @app.get("/optipick")
