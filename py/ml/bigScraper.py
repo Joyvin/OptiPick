@@ -88,16 +88,17 @@ def sentiment_analysis(client, documents):
 
 client = authenticate_client()
 
+products = ["toothpaste", "toothbrush", "mouth wash", "Dental floss", "Teeth whitening products"]
+asins = ['B0BSXNKKBD', 'B09RQSG1RW', 'B0CLY4DSMK', 'B0C5RLC1QJ', 'B0C9ZYZLKF', 'B09S6SK216', 'B0CFHMTLDT', 'B0BNMM9246', 'B07VB2WY7F', 'B0CLY4DSMK', 'B0B37W3BXR', 'B0BZPMKWG9', 'B0B4S5TX86', 'B0BJ7BW53L', 'B0CD7G9443', 'B0BRV3GWD5', 'B0CQTSHK4L', 'B0BMFBMCWS', 'B0BWJS2K8M', 'B0BSXNTHZD', 'B0CNXGY4BW', 'B0736SWPPQ', 'B0CD7G9443', 'B0BNMM9246', 'B09RQSG1RW', 'B07QLZXL8J', 'B0BSXNKKBD', 'B0CQK8L121', 'B0B5TC4GJQ', 'B0BNKVGDSF', 'B0BJVNG9YR', 'B083D43XM6', 'B08CBBDWWR', 'B08CVQSL21', 'B0CFFWR7PL', 'B0BZQ731TJ', 'B08BD4W4GC', 'B0BS5JD8HP', 'B08T89QJLJ', 'B08F2HH1N1', 'B0BGZNVC3X', 'B0BVKND96Y', 'B097JY56XB', 'B0BJQL24WP', 'B0BNX4VJRX', 'B0CFHH6932', 'B0BH41KG16', 'B0736SWPPQ', 'B0BVVY3JZP', 'B0CKLPLGZX', 'B0BSR5RDH6', 'B0BW8S4GB9', 'B07NCMS751', 'B0CP21FGH6', 'B08QJH5GB6', 'B0CMM986P3', 'B0BMFBMCWS', 'B0C9ZYZLKF', 'B0BWTYWVH7', 'B0CGZ39S12']
 
-url = "https://www.amazon.in/Colgate-Toothpaste-Strong-Teeth-Anti-cavity/product-reviews/B007BBUZ60/"
+for i in asins:
+    response = requests.get(f"https://www.amazon.in/product-review/{i}")
+    response.raise_for_status()
+    soup = BeautifulSoup(response.text, 'html.parser')
+    reviewEle = soup.findAll('span', {'class': 'review-text-content'})
+    with open('./data/whitening.txt', 'a') as f:
+        [f.write(j.text.replace("\n", '') + '\n') for j in reviewEle]
+    print(f"Wrote {i}")
 
-headers = {
-            'User-Agent': 'Your User Agent Here',
-        }
-response = requests.get(url, headers=headers)
-response.raise_for_status()
-soup = BeautifulSoup(response.text, 'html.parser')
-reviewEle = soup.findAll('span', {'class': 'review-text-content'})
-review = [i.text.replace("\n", '') for i in reviewEle]
 
-sentiment_analysis(client, review)
+# sentiment_analysis(client, review)

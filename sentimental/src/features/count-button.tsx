@@ -16,18 +16,17 @@ export const CountButton = () => {
     if (url) {
       console.log("hi")
       try {
-        const response = await fetch("http://127.0.0.1:8000/scrape", {
+        const response = await fetch("http://127.0.0.1:4000/endpoint", {
           method: "POST",
           headers: {
             "Content-Type": "application/json;charset=utf-8",
-            "Access-Control-Allow-Origin": "http://127.0.0.1:8000"
+            "Access-Control-Allow-Origin": "http://127.0.0.1:4000"
           },
           body: JSON.stringify({ url: url })
         })
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`)
         }
-        setUrl("Success")
       } catch (error) {
         console.error(error)
       }

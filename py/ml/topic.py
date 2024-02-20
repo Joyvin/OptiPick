@@ -10,11 +10,11 @@ from gensim.utils import simple_preprocess
 # Read and preprocess your text data
 tokenized = []
 
-with open('./review.txt', 'r') as f:
+with open('./data/toothbrush.txt', 'r') as f:
     for line in f:
         tokenized.append(simple_preprocess(line, deacc=True))
 
-print(tokenized)
+# print(tokenized)
 
 # Create a dictionary and a corpus
 id2word = corpora.Dictionary(tokenized)
@@ -25,7 +25,7 @@ corpus = [id2word.doc2bow(text) for text in tokenized]
 num_topics = 10
 chunksize = 2000
 passes = 20
-iterations = 400
+iterations = 1000
 eval_every = None 
 
 # Build the LDA model
@@ -50,7 +50,7 @@ coherence_model_lda = CoherenceModel(model=lda_model, texts=tokenized, dictionar
 coherence_lda = coherence_model_lda.get_coherence()
 
 # Visualize the topics and their keywords
-topics = lda_model.show_topics(num_topics=10, num_words=10)
+topics = lda_model.show_topics(num_topics=10, num_words=20)
 
 # Map word indices to actual words
 for topic_id, topic_words in topics:

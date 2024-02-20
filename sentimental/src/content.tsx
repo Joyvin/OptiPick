@@ -1,7 +1,8 @@
 import cssText from "data-text:~style.css"
 import type { PlasmoCSConfig } from "plasmo"
+import { DonutChartTr } from "~features/DonutChartTr"
 
-import { CountButton } from "~features/count-button"
+import Chart from "~features/Chart"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://www.plasmo.com/*"]
@@ -16,7 +17,8 @@ export const getStyle = () => {
 const PlasmoOverlay = () => {
   return (
     <div className="z-50 flex fixed top-32 right-8">
-      <CountButton />
+      <DonutChartTr/>
+      <Chart />
     </div>
   )
 }
