@@ -93,24 +93,11 @@ url = "https://www.amazon.in/Colgate-Toothpaste-Strong-Teeth-Anti-cavity/product
 
 headers = {
             'User-Agent': 'Your User Agent Here',
-}
-
-# space = 0
-# i = 1
-
-# while space < 51:
-response = requests.get(url+f"?pageNumber={i}", headers=headers)
+        }
+response = requests.get(url, headers=headers)
 response.raise_for_status()
 soup = BeautifulSoup(response.text, 'html.parser')
 reviewEle = soup.findAll('span', {'class': 'review-text-content'})
 review = [i.text.replace("\n", '') for i in reviewEle]
-print(review)
 
-with open('./review.txt', 'a') as file:
-    for element in review:
-        file.write(str(element) + '\n')
-
-    # space = space + len(review)
-    # i = i+1
-
-# sentiment_analysis(client, review)
+sentiment_analysis(client, review)
