@@ -6,7 +6,7 @@ const Team = () => {
     {
       img: "img/joy.jpeg",
       name: "Joyvin Mendonca",
-      role: "Full Stack dev",
+      role: "AI / ML dev",
       inst: "https://www.instagram.com/joyvinmendonca/",
       git: "https://github.com/Joyvin",
       lkdn: "https://www.linkedin.com/in/joyvinmendonca/",
@@ -22,18 +22,18 @@ const Team = () => {
       web: '#'
     },
     {
-      img: "img/jayden.png",
+      img: "img/alston.jpg",
       name: "Alston Soares",
-      role: "Back End dev",
-      inst: "https://www.instagram.com/jaydencolaco",
-      git: "https://github.com/jaydencolaco",
-      lkdn: "https://www.linkedin.com/in/jayden-colaco-730637264/",
+      role: "Full Stack dev",
+      inst: "https://www.instagram.com/alstonsoares17",
+      git: "https://github.com/Alstudd",
+      lkdn: "https://www.linkedin.com/in/alston-soares-724a641b9/",
       web: '#'
     },
     {
       img: "img/zane.jpg",
       name: "Zane Fernandes",
-      role: "AI / ML dev",
+      role: "Full Stack dev",
       inst: "https://www.instagram.com/zane_fernandes/",
       git: "https://github.com/ZaneFerns360/",
       lkdn: "https://www.linkedin.com/in/zane-fernandes-b46b75264/",
@@ -48,7 +48,7 @@ const Team = () => {
       </h1>
       <div className="my-7 mx-auto grid md:grid-cols-4 md:w-[65%]">
         {data.map((values, i) => (
-          <div className="">
+          <div key={i}>
           <div className="w-full max-w-sm bg-white rounded-lg  dark:bg-transparent">
             <div className="flex flex-col items-center pb-10">
               <img
@@ -63,13 +63,13 @@ const Team = () => {
                 {values.role}
               </span>
               <div className="flex mt-4 space-x-3 md:mt-6">
-                <a href={values.inst}>
+                <a target="blank" href={values.inst}>
                   <Instagram />
                 </a>
-                <a href={values.git}>
+                <a target="blank" href={values.git}>
                   <Github />
                 </a>
-                <a href={values.lkdn}>
+                <a target="blank" href={values.lkdn}>
                   <Linkedin />
                 </a>
     
