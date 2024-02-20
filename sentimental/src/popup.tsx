@@ -8,8 +8,6 @@ function IndexPopup() {
   return (
     <div className="h-[500px] w-80 my-3">
       <CountButton />
-      <DonutChartTr />
-      <Chart />
     </div>
   )
 }

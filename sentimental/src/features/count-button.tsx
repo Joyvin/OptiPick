@@ -2,8 +2,21 @@ import someCoolImage from "data-base64:~/../assets/Binary code.mp4"
 import { Moon, Sparkles } from "lucide-react"
 import { useEffect, useState } from "react"
 
+import Chart from "./Chart"
+import DonutChartTr from "./DonutChartTr"
+
+interface ResponseData {
+  overall: {
+    positive: number[]
+    negative: number[]
+    neutral: number[]
+  }
+  nps: number
+}
+
 export const CountButton = () => {
   const [url, setUrl] = useState("")
+  const [response, setResponse] = useState<ResponseData | null>(null)
 
   useEffect(() => {
     chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
@@ -12,9 +25,7 @@ export const CountButton = () => {
   }, [])
 
   const sendRequest = async () => {
-    console.log("no hi")
     if (url) {
-      console.log("hi")
       try {
         const response = await fetch("http://127.0.0.1:4000/endpoint", {
           method: "POST",
@@ -27,7 +38,8 @@ export const CountButton = () => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`)
         }
-        console.log(response)
+        const data = await response.json()
+        setResponse(data)
       } catch (error) {
         console.error(error)
       }
@@ -45,10 +57,8 @@ export const CountButton = () => {
           Analyse your page in one click and find the best product experienced
           by customers
         </p>
-
         {/* <img src={someCoolImage} alt="Some pretty cool image" /> */}
         <video src={someCoolImage} muted autoPlay loop />
-
         <div className="absolute bottom-4 right-4 flex gap-3">
           <button
             className="rounded-md p-2 px-4 border border-black "
@@ -62,7 +72,8 @@ export const CountButton = () => {
             Analyse Product
           </button>
         </div>
-        {/* <p>{url}</p> */}
+        {response && <Chart data={response} />}
+        {response && <DonutChartTr data={response.nps * 10} />}{" "}
       </div>
     </>
   )

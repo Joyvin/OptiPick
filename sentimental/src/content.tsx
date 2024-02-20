@@ -1,8 +1,8 @@
 import cssText from "data-text:~style.css"
 import type { PlasmoCSConfig } from "plasmo"
-import { DonutChartTr } from "~features/DonutChartTr"
 
 import Chart from "~features/Chart"
+import { DonutChartTr } from "~features/DonutChartTr"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://www.plasmo.com/*"]
@@ -15,12 +15,7 @@ export const getStyle = () => {
 }
 
 const PlasmoOverlay = () => {
-  return (
-    <div className="z-50 flex fixed top-32 right-8">
-      <DonutChartTr/>
-      <Chart />
-    </div>
-  )
+  return <div className="z-50 flex fixed top-32 right-8"></div>
 }
 
 export default PlasmoOverlay

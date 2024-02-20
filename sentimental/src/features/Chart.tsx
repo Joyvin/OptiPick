@@ -1,46 +1,75 @@
 import { Annoyed, ThumbsDown, ThumbsUp } from "lucide-react"
-import React from "react"
+import React, { useEffect, useState } from "react"
 
-const chart = () => {
-  const data = [
+interface ResponseData {
+  overall: {
+    positive: number[]
+    negative: number[]
+    neutral: number[]
+  }
+  nps: number
+}
+
+const Chart = ({ data }: { data: ResponseData }) => {
+  const [chartData, setChartData] = useState([
     {
       quality: "Excellent",
-      type: "positive"
+      type: "positive",
+      percentage: 0
     },
     {
       quality: "Fine",
-      type: "neutral"
+      type: "neutral",
+      percentage: 0
     },
     {
       quality: "Poor",
-      type: "negative"
+      type: "negative",
+      percentage: 0
     }
-  ]
+  ])
+
+  useEffect(() => {
+    setChartData([
+      {
+        quality: "Excellent",
+        type: "positive",
+        percentage: data.overall.positive[0]
+      },
+      {
+        quality: "Fine",
+        type: "neutral",
+        percentage: data.overall.neutral[0]
+      },
+      {
+        quality: "Poor",
+        type: "negative",
+        percentage: data.overall.negative[0]
+      }
+    ])
+  }, [data])
+
   return (
     <div className="w-[90%] mx-auto  my-5">
-        <div className="grid grid-cols-3 gap-3 justify-items-center">
-      <div className="align-center">
-        <ThumbsUp />
-        50%
+      <div className="grid grid-cols-3 gap-3 justify-items-center">
+        {chartData.map((value, i) => (
+          <div key={i} className="align-center">
+            {value.type === "positive" && <ThumbsUp />}
+            {value.type === "neutral" && <Annoyed />}
+            {value.type === "negative" && <ThumbsDown />}
+            {value.percentage * 100}%
+          </div>
+        ))}
       </div>
-      <div className="align-center">
-        <Annoyed />
-        50%
-      </div>
-      <div className="align-center">
-        <ThumbsDown />
-        50%
-      </div>
-        </div>
       <div className="w-full flex justify-center flex-row gap-3 my-2">
-        {data.map((values, i) => {
-          return values.type == "positive" ? (
+        {chartData.map((values, i) => {
+          return values.type === "positive" ? (
             <div
               key={i}
               className="block shadow-md rounded-full px-3 py-2 border border-green-500">
               {values.quality}
             </div>
-          ) : values.type == "negative" ? (
+          ) : values.type === "negative" ? (
             <div
               key={i}
               className="block shadow-md rounded-full px-3 py-2 border border-red-500">
@@ -56,10 +85,12 @@ const chart = () => {
         })}
       </div>
       <a href="/dashboard" className="pt-5">
-        <p className="text-blue-500 underline text-center">Click here to know more about the product </p>
+        <p className="text-blue-500 underline text-center">
+          Click here to know more about the product{" "}
+        </p>
       </a>
     </div>
   )
 }
 
-export default chart
+export default Chart
