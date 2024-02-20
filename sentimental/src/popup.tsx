@@ -4,7 +4,7 @@ import "~style.css"
 
 function IndexPopup() {
   return (
-    <div className="flex items-center justify-center h-48 w-64">
+    <div className="h-[500px] w-80">
       <CountButton />
     </div>
   )
