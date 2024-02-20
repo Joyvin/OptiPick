@@ -16,7 +16,7 @@ def authenticate_client():
             credential=ta_credential)
     return text_analytics_client
 
-async def sentiment_analysis(client, documents):
+def sentiment_analysis(client, documents):
 
     result = client.analyze_sentiment(documents, show_opinion_mining=True)
     doc_result = [doc for doc in result if not doc.is_error]
@@ -85,8 +85,8 @@ async def sentiment_analysis(client, documents):
         #     print("\n")
         # print("\n")
 
-    # analysis = json.dumps(analysis)
-    return analysis
+    analysis = json.dumps(analysis)
+    print(analysis)
 
 app = Flask(__name__)
 
@@ -95,7 +95,7 @@ def hello():
     return "helloj"
 
 @app.route('/api/scrape', methods=['POST'])
-async def scrape():
+def scrape():
     client = authenticate_client()
 
     url = request.form.get('url')
@@ -118,11 +118,10 @@ async def scrape():
         review = [i.text.replace("\n", '') for i in reviewEle]
         # return str(review)
 
-        analysis = await sentiment_analysis(client, review)
-        print(analysis)
-        analysis = json.dumps(analysis)
+        analysis = sentiment_analysis(client, review)
+        # analysis = json.dumps(analysis)
 
-        return analysis
+        return jsonify(analysis)
     else:
         print("Cant find url")
 

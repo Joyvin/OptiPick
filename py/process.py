@@ -92,7 +92,7 @@ async def scrape(item: Item):
     result = response.text
     print(result)
 
-    return {"message": f"Scraping {item.url}", "data": result}
+    return json.dumps({"message": f"Scraping {item.url}", "data": result})
     # Your scraping logic here
 
     # soup = BeautifulSoup(response.text, "html.parser")
