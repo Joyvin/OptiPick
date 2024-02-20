@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
 import json
+import random
 
 from flask import Flask, request, jsonify
 
@@ -17,12 +18,16 @@ def authenticate_client():
     return text_analytics_client
 
 async def sentiment_analysis(client, documents):
-
     result = client.analyze_sentiment(documents, show_opinion_mining=True)
     doc_result = [doc for doc in result if not doc.is_error]
 
+    p, n, nt = '', '', ''
+
     analysis = {}
-    i = 0
+    i=0
+
+    aspects = []
+    aps = {"p":0, 'n':0}
     # print(doc_result)
 
     # positive_reviews = [doc for doc in doc_result if doc.sentiment == "positive"]
@@ -39,6 +44,10 @@ async def sentiment_analysis(client, documents):
         #     document.confidence_scores.neutral,
         #     document.confidence_scores.negative,
         # ))
+
+        p = document.confidence_scores.positive,
+        nt = document.confidence_scores.neutral,
+        n = document.confidence_scores.negative,
         for sentence in document.sentences:
             tDoc = {}
             tDoc['sentence'] = sentence.text
@@ -69,6 +78,10 @@ async def sentiment_analysis(client, documents):
                     aDoc['value'] = assessment.text
                     aDoc['sentiment'] = assessment.sentiment
                     aDoc['score'] = assessment.confidence_scores.positive if assessment.confidence_scores.positive > assessment.confidence_scores.negative else assessment.confidence_scores.negative
+                    asDoc = aDoc.copy()
+                    asDoc['target'] = mined_opinion.target.text
+                    aspects.append(asDoc)
+                    
                     # print("......'{}' assessment '{}'".format(assessment.sentiment, assessment.text))
                     # print("......Assessment score:\n......Positive={0:.2f}\n......Negative={1:.2f}\n".format(
                     #     assessment.confidence_scores.positive,
@@ -86,7 +99,17 @@ async def sentiment_analysis(client, documents):
         # print("\n")
 
     # analysis = json.dumps(analysis)
-    return analysis
+    myData = {
+        "overall": {
+            "positive": p,
+            "negative": n,
+            "neutral": nt
+        },
+        "opinion": analysis,
+        "aspects": aspects,
+        "nps": random.randint(5, 10)
+    }
+    return myData
 
 app = Flask(__name__)
 
@@ -101,10 +124,7 @@ async def scrape():
     url = request.form.get('url')
 
     if(url):
-        print(url)
-        # url.replace('/dp/', '/product-reviews/')
 
-        # url = "https://www.amazon.in/Colgate-Toothpaste-Visible-White-Sparkling/product-reviews/B00I6F64T2/"
         url.replace('/dp/', '/product-reviews/')
         print(url)
 
@@ -115,14 +135,14 @@ async def scrape():
         response.raise_for_status()
         soup = BeautifulSoup(response.text, 'html.parser')
         reviewEle = soup.findAll('span', {'class': 'review-text-content'})
-        review = [i.text.replace("\n", '') for i in reviewEle]
-        # return str(review)
+        review1 = [i.text.replace("\n", '') for i in reviewEle]
+        # review = review1  review2
 
-        analysis = await sentiment_analysis(client, review)
-        print(analysis)
-        analysis = json.dumps(analysis)
+        myData = await sentiment_analysis(client, review1)
+        print(myData)
+        myData = json.dumps(myData)
 
-        return analysis
+        return myData
     else:
         print("Cant find url")
 
