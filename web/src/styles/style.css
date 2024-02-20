@@ -720,7 +720,3 @@ video {
   height: calc(100vh * 0.75);
   overflow-y: auto;
 }
-
-#prompt {
-  outline: none;
-}

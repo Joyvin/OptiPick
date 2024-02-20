@@ -116,7 +116,7 @@ const Chatbot = () => {
                 <div id="chat-container" ref={chatArea} class=""></div>
                 <div className="w-full p-2 flex border-b rounded-full py-2 px-4 shadow-md">
                   <form onSubmit={handleSubmit} action="" method="post" className="w-full flex" id="chat-form" ref={chatForm} onKeyUp={handleKeyup}>
-                    <input placeholder="Ask your question?" type="text" name="" ref={userMessage} id="prompt" class="w-full p-1 pb-0" />
+                    <input placeholder="Ask your question?" type="text" name="" ref={userMessage} id="prompt" class="w-full p-1 pb-0 outline-none border-none" />
                     <button className="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white" type="submit">Send</button>
                   </form>
                 </div>
