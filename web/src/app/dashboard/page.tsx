@@ -1,10 +1,39 @@
 "use client";
-import React from 'react'
-import { AreaChart } from '@tremor/react';
+import React, { useState } from 'react'
+import { AreaChart, BarChart } from '@tremor/react';
 import { RiRefreshLine } from '@remixicon/react';
 import { Button } from '@tremor/react';
+import { DonutChart } from '@tremor/react';
+import { Search } from 'lucide-react';
 
-const chartdata = [
+const datahero = [
+  {
+    name: 'Noche Holding AG',
+    value: 9800,
+  },
+  {
+    name: 'Rain Drop AG',
+    value: 4567,
+  },
+  {
+    name: 'Push Rail AG',
+    value: 3908,
+  },
+  {
+    name: 'Flow Steal AG',
+    value: 2400,
+  },
+  {
+    name: 'Tiny Loop Inc.',
+    value: 2174,
+  },
+  {
+    name: 'Anton Resorts Holding',
+    value: 1398,
+  },
+];
+
+const chartdata1 = [
   {
     date: 'Jan 22',
     SemiAnalysis: 2890,
@@ -67,27 +96,137 @@ const chartdata = [
   },
 ];
 
+const chartdata2 = [
+  {
+    name: 'Amphibians',
+    'Number of threatened species': 2488,
+  },
+  {
+    name: 'Birds',
+    'Number of threatened species': 1445,
+  },
+  {
+    name: 'Crustaceans',
+    'Number of threatened species': 743,
+  },
+  {
+    name: 'Ferns',
+    'Number of threatened species': 281,
+  },
+  {
+    name: 'Arachnids',
+    'Number of threatened species': 251,
+  },
+  {
+    name: 'Corals',
+    'Number of threatened species': 232,
+  },
+  {
+    name: 'Algae',
+    'Number of threatened species': 98,
+  },
+];
+
 const dataFormatter = (number: number) =>
   `$${Intl.NumberFormat('us').format(number).toString()}`;
 
 type Props = {}
 
 const page = (props: Props) => {
+  const [inputValue, setInputValue] = useState('');
+  const [showData, setShowData] = useState(false);
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    e.target.reset();
+    setShowData(true);
+  };
   return (
-    <div className='z-[20]'>
-    <AreaChart
-      className="h-80 rounded-lg shadow-md p-4 mt-20"
-      data={chartdata}
-      index="date"
-      categories={['SemiAnalysis', 'The Pragmatic Engineer']}
-      colors={['indigo', 'rose']}
-      valueFormatter={dataFormatter}
-      yAxisWidth={60}
-      onValueChange={(v) => console.log(v)}
-    />
-    <div className="flex justify-center">
-      <Button icon={RiRefreshLine}>Refresh data</Button>
-    </div>
+    <div className=''>
+      <div className="my-2 md:flex flex-row justify-between relative z-[20] mt-20">
+        <form onSubmit={handleSubmit} className="md:w-[80%]">
+          <label
+            htmlFor="default-search"
+            className="sr-only mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            URL
+          </label>
+          <div className="relative w-full">
+            <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
+              <Search className='text-white' />
+            </div>
+            <input
+              type="search"
+              id="default-search"
+              className="block w-full  rounded-lg border border-gray-300 bg-gray-50 p-4 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              placeholder="Enter URL"
+              onChange={(e) => setInputValue(e.target.value)}
+              required
+            />
+            <button
+              type='submit'
+              className="absolute bottom-2.5 end-2.5 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+      {
+        showData && (
+          <div className={`grid md:grid-cols-3 grid-cols-1 relative z-[20] mt-10`}>
+            <div className='shadow-md rounded-md bg-transparent m-4'>
+              <AreaChart
+                className=""
+                data={chartdata1}
+                index="date"
+                categories={['SemiAnalysis', 'The Pragmatic Engineer']}
+                colors={['indigo', 'rose']}
+                valueFormatter={dataFormatter}
+                yAxisWidth={60}
+                onValueChange={(v) => console.log(v)}
+              />
+            </div>
+            <div className='shadow-md rounded-md bg-transparent m-4'>
+              <BarChart
+                data={chartdata2}
+                index="name"
+                categories={['Number of threatened species']}
+                colors={['blue']}
+                valueFormatter={dataFormatter}
+                yAxisWidth={48}
+                onValueChange={(v) => console.log(v)}
+              />
+            </div>
+            <Button>
+              <RiRefreshLine />
+              Refresh
+            </Button>
+            <div>
+              <span className="text-center block font-mono text-tremor-default text-tremor-content dark:text-dark-tremor-content">
+                donut variant 1
+              </span>
+              <DonutChart
+                data={datahero}
+                variant="donut"
+                valueFormatter={dataFormatter}
+                onValueChange={(v) => console.log(v)}
+              />
+            </div>
+            <div>
+              <span className="text-center block font-mono text-tremor-default text-tremor-content dark:text-dark-tremor-content">
+                donut variant 2
+              </span>
+              <DonutChart
+                data={datahero}
+                variant="pie"
+                valueFormatter={dataFormatter}
+                onValueChange={(v) => console.log(v)}
+              />
+            </div>
+          </div>
+        )
+      }
     </div>
   )
 }
