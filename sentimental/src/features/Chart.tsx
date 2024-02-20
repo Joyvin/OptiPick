@@ -1,6 +1,13 @@
 import { Annoyed, ThumbsDown, ThumbsUp } from "lucide-react"
 import React, { useEffect, useState } from "react"
 
+interface Aspect {
+  value: string
+  sentiment: string
+  score: number
+  target: string
+}
+
 interface ResponseData {
   overall: {
     positive: number[]
@@ -8,9 +15,16 @@ interface ResponseData {
     neutral: number[]
   }
   nps: number
+  aspects: Aspect[]
 }
 
-const Chart = ({ data }: { data: ResponseData }) => {
+const Chart = ({
+  data,
+  aspects
+}: {
+  data: ResponseData
+  aspects: Aspect[]
+}) => {
   const [chartData, setChartData] = useState([
     {
       quality: "Excellent",
@@ -48,7 +62,6 @@ const Chart = ({ data }: { data: ResponseData }) => {
       }
     ])
   }, [data])
-
   return (
     <div className="w-[90%] mx-auto  my-5">
       <div className="grid grid-cols-3 gap-3 justify-items-center">
@@ -62,6 +75,13 @@ const Chart = ({ data }: { data: ResponseData }) => {
         ))}
       </div>
       <div className="w-full flex justify-center flex-row gap-3 my-2">
+        {aspects.map((aspect, i) => (
+          <div
+            key={i}
+            className="block shadow-md rounded-full px-3 py-2 border border-green-500">
+            {aspect.target}: {aspect.value}
+          </div>
+        ))}
         {chartData.map((values, i) => {
           return values.type === "positive" ? (
             <div
