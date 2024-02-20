@@ -4,7 +4,7 @@ from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
 import json
 
-from flask import Flask
+from flask import Flask, request
 
 language_key = '9dbfb5dbd09940fa87b596dfac51ca40'
 language_endpoint = 'https://faqtest.cognitiveservices.azure.com/'
@@ -97,7 +97,9 @@ def hello():
 @app.route('/api/scrape', methods=['POST'])
 def scrape():
     client = authenticate_client()
-    url = "https://www.amazon.in/Colgate-Toothpaste-Strong-Teeth-Anti-cavity/product-reviews/B007BBUZ60/"
+
+    url = request.form.get('url')
+    url.replace('/dp/', '/product-reviews/')
 
     headers = {
                 'User-Agent': 'Your User Agent Here',
@@ -107,9 +109,12 @@ def scrape():
     soup = BeautifulSoup(response.text, 'html.parser')
     reviewEle = soup.findAll('span', {'class': 'review-text-content'})
     review = [i.text.replace("\n", '') for i in reviewEle]
-    return str(review)
+    # return str(review)
 
-    # sentiment_analysis(client, review)
+    analysis = sentiment_analysis(client, review)
+    analysis = json.dumps(analysis)
+
+    return analysis
 
 
 if __name__ == '__main__':
