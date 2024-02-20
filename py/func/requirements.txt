@@ -1,0 +1,4 @@
+azure-functions
+bs4
+requests
+azure

@@ -1,12 +1,9 @@
-import azure.functions as func
-import logging
-import requests
+from flask import Flask, request, make_response, jsonify
 from bs4 import BeautifulSoup
+import requests
 from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
 import json
-
-app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 
 language_key = '9dbfb5dbd09940fa87b596dfac51ca40'
 language_endpoint = 'https://faqtest.cognitiveservices.azure.com/'
@@ -33,20 +30,17 @@ def sentiment_analysis(client, documents):
             tDoc['isPositive'] = sentence.confidence_scores.positive
             tDoc['isNegative'] = sentence.confidence_scores.negative
             tDoc['isNeutral'] = sentence.confidence_scores.neutral
-
             ops = []
             for mined_opinion in sentence.mined_opinions:
                 oDoc = {}
                 oDoc['target'] = mined_opinion.target.text
                 oAssg = []
-
                 for assessment in mined_opinion.assessments:
                     aDoc = {}
                     aDoc['value'] = assessment.text
                     aDoc['sentiment'] = assessment.sentiment
                     aDoc['score'] = assessment.confidence_scores.positive if assessment.confidence_scores.positive > assessment.confidence_scores.negative else assessment.confidence_scores.negative
                     oAssg.append(aDoc)
-
                 oDoc['assessment'] = oAssg
                 ops.append(oDoc)
 
@@ -55,44 +49,41 @@ def sentiment_analysis(client, documents):
             i = i+1
             
     analysis = json.dumps(analysis)
-    return analysis
+    print(analysis)
 
-@app.route(route="scrape", methods=['POST'])
-def scrape(req: func.HttpRequest) -> func.HttpResponse:
-    url = req.get_json().get('url')
+app = Flask(__name__)
 
-    headers = {
-        'User-Agent': 'Your User Agent Here',
-    }
-    response = requests.get(url, headers=headers)
+@app.route('/scrape', methods=['POST'])
+def scrape():
+    url = request.json.get('url')
+    # headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"}
+    response = requests.get(url)
     response.raise_for_status()
     soup = BeautifulSoup(response.text, 'html.parser')
     reviewEle = soup.findAll('span', {'class': 'review-text-content'})
     review = [i.text.replace("\n", '') for i in reviewEle]
-
+    
     client = authenticate_client()
-    res = sentiment_analysis(client, review)
+    analysis = sentiment_analysis(client, review)
+    analysis = json.dumps(analysis)
 
-    return func.HttpResponse(res)    
+    return analysis
 
-
-@app.route(route="optipick")
-def optipick(req: func.HttpRequest) -> func.HttpResponse:
-    logging.info('Python HTTP trigger function processed a request.')
-
-    name = req.params.get('name')
+@app.route('/optipick', methods=['GET', 'POST'])
+def optipick():
+    name = request.args.get('name')
     if not name:
         try:
-            req_body = req.get_json()
+            req_body = request.get_json()
         except ValueError:
             pass
         else:
             name = req_body.get('name')
 
     if name:
-        return func.HttpResponse(f"Hello, {name}. This HTTP triggered function executed successfully.")
+        return f"Hello, {name}. This HTTP triggered function executed successfully."
     else:
-        return func.HttpResponse(
-             "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
-             status_code=200
-        )
+        return "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
+
+if __name__ == '__main__':
+    app.run(debug=True)
