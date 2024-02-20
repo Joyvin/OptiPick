@@ -4,7 +4,7 @@ import { AreaChart, BarChart } from '@tremor/react';
 import { RiRefreshLine } from '@remixicon/react';
 import { Button } from '@tremor/react';
 import { DonutChart } from '@tremor/react';
-import styles from "@/styles/styles.module.css";
+import { Search } from 'lucide-react';
 
 const datahero = [
   {
@@ -133,31 +133,48 @@ const dataFormatter = (number: number) =>
 type Props = {}
 
 const page = (props: Props) => {
-  const [displayForm, setDisplayForm] = useState('flex');
   const [inputValue, setInputValue] = useState('');
   const [showData, setShowData] = useState(false);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    setDisplayForm('hidden');
+    e.target.reset();
     setShowData(true);
   };
   return (
     <div className=''>
-      <div className={`${displayForm} ${styles.container} relative z-[20] mt-20 flex flex-col`}>
-        <h1 className={`${styles.title} text-white`}>Product Review Analysis</h1>
-        <input
-          type="text"
-          value={inputValue}
-          className={styles.input}
-          onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Enter URL"
-        />
-        <button onClick={handleSubmit} className={`${styles.button} text-white`}>Submit</button>
+      <div className="my-2 md:flex flex-row justify-between relative z-[20] mt-20">
+        <form onSubmit={handleSubmit} className="md:w-[80%]">
+          <label
+            htmlFor="default-search"
+            className="sr-only mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            URL
+          </label>
+          <div className="relative w-full">
+            <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
+              <Search className='text-white' />
+            </div>
+            <input
+              type="search"
+              id="default-search"
+              className="block w-full  rounded-lg border border-gray-300 bg-gray-50 p-4 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              placeholder="Enter URL"
+              onChange={(e) => setInputValue(e.target.value)}
+              required
+            />
+            <button
+              type='submit'
+              className="absolute bottom-2.5 end-2.5 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
       </div>
       {
         showData && (
-          <div className={`grid md:grid-cols-3 grid-cols-1 relative z-[20] mt-20`}>
+          <div className={`grid md:grid-cols-3 grid-cols-1 relative z-[20] mt-10`}>
             <div className='shadow-md rounded-md bg-transparent m-4'>
               <AreaChart
                 className=""
