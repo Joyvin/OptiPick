@@ -22,8 +22,24 @@ corpus = [id2word.doc2bow(text) for text in tokenized]
 
 # print(id2word)
 
+num_topics = 10
+chunksize = 2000
+passes = 20
+iterations = 400
+eval_every = None 
+
 # Build the LDA model
-lda_model = LdaModel(corpus, num_topics=10)  # Specify the number of topics
+lda_model = LdaModel(
+    corpus=corpus,
+    id2word=id2word,
+    chunksize=chunksize,
+    alpha='auto',
+    eta='auto',
+    iterations=iterations,
+    num_topics=num_topics,
+    passes=passes,
+    eval_every=eval_every
+)
 
 # Infer topic distributions for new documents (you can replace this with your actual data)
 new_doc_bow = [(1, 0.3), (2, 0.1), (0, 0.09)]
