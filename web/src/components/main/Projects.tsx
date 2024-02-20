@@ -4,27 +4,27 @@ import ProjectCard from "../sub/ProjectCard";
 const Projects = () => {
   return (
     <div
-      className="flex flex-col items-center justify-center py-20"
+      className="w-[90%] mx-auto flex flex-col items-center justify-center pb-10"
       id="projects"
     >
       <h1 className="text-[40px] font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500 py-20">
-        My Projects
+        Our Features
       </h1>
-      <div className="h-full w-full flex flex-col md:flex-row gap-10 px-10">
+      <div className="h-full w-full grid md:grid-cols-3 md:flex-row gap-10 px-10">
         <ProjectCard
-          src="/SpaceWebsite.png"
-          title="Space Themed Website"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          src="/compare.png"
+          title="Compare Products"
+          description="Compare products to find the best Products to Buy."
         />
         <ProjectCard
-          src="/SpaceWebsite.png"
-          title="Space Themed Website"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          src="/chatbot.png"
+          title="AI Chatbot"
+          description="Have any doubts, want to find the best of Products for any scenario"
         />
         <ProjectCard
-          src="/SpaceWebsite.png"
-          title="Space Themed Website"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          src="/checker.png"
+          title="Product Checker"
+          description="Check for genuinity of products directly from the consumers"
         />
       </div>
     </div>
