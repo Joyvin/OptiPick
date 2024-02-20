@@ -1,6 +1,7 @@
 import axios from "axios"
 import { Moon, Sparkles } from "lucide-react"
 import { useEffect, useState } from "react"
+import someCoolImage from "data-base64:~/../assets/Binary code.mp4"
 
 export const CountButton = () => {
   const [url, setUrl] = useState("")
@@ -31,7 +32,12 @@ export const CountButton = () => {
           <Sparkles />
           <h1 className="font-bold text-xl">Welcome to OptiPick</h1>
         </div>
-        <p>Analyse your page in one click and find the best product experienced by customers</p>
+        <p className="mb-3">Analyse your page in one click and find the best product experienced by customers</p>
+
+        {/* <img src={someCoolImage} alt="Some pretty cool image" /> */}
+        <video src={someCoolImage} muted autoPlay loop />
+
+
         <div className="absolute bottom-4 right-4 flex gap-3">
         <button
           className="rounded-md p-2 px-4 border border-black "
@@ -40,9 +46,9 @@ export const CountButton = () => {
         </button>
 
         <button
-          className="rounded-md p-2 px-4 border border-black "
+          className="rounded-md p-2 px-4 border border-black"
           onClick={sendRequest}>
-          Analyse Page
+          Analyse Product
         </button>
         </div>
         {/* <p>{url}</p> */}

@@ -4,7 +4,7 @@ import "~style.css"
 
 function IndexPopup() {
   return (
-    <div className="rounded-lg h-[500px] w-80">
+    <div className="h-[500px] w-80">
       <CountButton />
     </div>
   )
