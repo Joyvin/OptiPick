@@ -5,6 +5,13 @@ import { useEffect, useState } from "react"
 import Chart from "./Chart"
 import DonutChartTr from "./DonutChartTr"
 
+interface Aspect {
+  value: string
+  sentiment: string
+  score: number
+  target: string
+}
+
 interface ResponseData {
   overall: {
     positive: number[]
@@ -12,6 +19,7 @@ interface ResponseData {
     neutral: number[]
   }
   nps: number
+  aspects: Aspect[]
 }
 
 export const CountButton = () => {
@@ -53,26 +61,30 @@ export const CountButton = () => {
           <Sparkles />
           <h1 className="font-bold text-xl">Welcome to OptiPick</h1>
         </div>
-        <p className="mb-3">
-          Analyse your page in one click and find the best product experienced
-          by customers
-        </p>
-        {/* <img src={someCoolImage} alt="Some pretty cool image" /> */}
-        <video src={someCoolImage} muted autoPlay loop />
-        <div className="absolute bottom-4 right-4 flex gap-3">
-          <button
-            className="rounded-md p-2 px-4 border border-black "
-            onClick={sendRequest}>
-            <Moon size={20} />
-          </button>
+        {!response && (
+          <>
+            <p className="mb-3">
+              Analyse your page in one click and find the best product
+              experienced by customers
+            </p>
+            {/* <img src={someCoolImage} alt="Some pretty cool image" /> */}
+            <video src={someCoolImage} muted autoPlay loop />
+            <div className="absolute bottom-4 right-4 flex gap-3">
+              <button
+                className="rounded-md p-2 px-4 border border-black "
+                onClick={sendRequest}>
+                <Moon size={20} />
+              </button>
 
-          <button
-            className="rounded-md p-2 px-4 border border-black"
-            onClick={sendRequest}>
-            Analyse Product
-          </button>
-        </div>
-        {response && <Chart data={response} />}
+              <button
+                className="rounded-md p-2 px-4 border border-black"
+                onClick={sendRequest}>
+                Analyse Product
+              </button>
+            </div>
+          </>
+        )}
+        {response && <Chart data={response} aspects={response.aspects} />}
         {response && <DonutChartTr data={response.nps * 10} />}{" "}
       </div>
     </>
