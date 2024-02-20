@@ -1,0 +1,68 @@
+const sliderDetails = [
+	{
+		title: "Naveen Villa",
+		place: "Surat, Gujarat",
+		rating: 8.4,
+		review: 636,
+		price: 5,
+		imgUrl: "/SpaceWebsite.png",
+	},
+	{
+		title: "Maharaj House",
+		place: "Bandra, Mumbai",
+		rating: 9.2,
+		review: 1245,
+		price: 10,
+		imgUrl: "/SpaceWebsite.png",
+	},
+	{
+		title: "Vista Home",
+		place: "Chennai, Tamil Nadu",
+		rating: 8.9,
+		review: 987,
+		price: 6,
+		imgUrl: "/SpaceWebsite.png",
+	},
+	{
+		title: "Jumanji Ghar",
+		place: "Madhya Pradesh",
+		rating: 9.5,
+		review: 2150,
+		price: 8,
+		imgUrl: "/SpaceWebsite.png",
+	},
+	{
+		title: "Naveen Villa",
+		place: "Surat, Gujarat",
+		rating: 8.7,
+		review: 1500,
+		price: 5,
+		imgUrl: "/SpaceWebsite.png",
+	},
+	{
+		title: "Maharaj House",
+		place: "Bandra, Mumbai",
+		rating: 9.1,
+		review: 1800,
+		price: 9,
+		imgUrl: "/SpaceWebsite.png",
+	},
+	{
+		title: "Vista Home",
+		place: "Chennai, Tamil Nadu",
+		rating: 8.8,
+		review: 1050,
+		price: 12,
+		imgUrl: "/SpaceWebsite.png",
+	},
+	{
+		title: "Jumanji Ghar",
+		place: "Madhya Pradesh",
+		rating: 9.3,
+		review: 2000,
+		price: 5,
+		imgUrl: "/SpaceWebsite.png",
+	},
+];
+
+export default sliderDetails;

@@ -28,13 +28,13 @@ async function getResponse(prompt) {
 export const userDiv = (data) => {
   return `
   <!-- User Chat -->
-          <div className="flex items-center gap-2 justify-start my-4">
+          <div class="flex items-center gap-2 justify-start my-4">
             <img
               src="user.jpg"
               alt="user icon"
-              className="w-10 h-10 rounded-full"
+              class="w-10 h-10 rounded-full"
             />
-            <p className="bg-transparent border-2 border-white text-black px-4 py-2 rounded-md shadow-md">
+            <p class="bg-transparent border-2 border-white text-black px-4 py-2 rounded-md shadow-md">
               ${data}
             </p>
           </div>
@@ -45,14 +45,14 @@ export const userDiv = (data) => {
 export const aiDiv = (data) => {
   return `
   <!-- AI Chat -->
-          <div className="flex gap-2 justify-end pl-[130px] my-4">
-            <pre className="bg-transparent border-2 border-white text-black px-4 py-2 rounded-md shadow-md whitespace-pre-wrap">
+          <div class="flex gap-2 justify-end pl-[130px] my-4">
+            <pre class="bg-transparent border-2 border-white text-black px-4 py-2 rounded-md shadow-md whitespace-pre-wrap">
               ${data}
             </pre>
             <img
               src="chat-bot.jpg"
               alt="user icon"
-              className="w-10 h-10 rounded-full"
+              class="w-10 h-10 rounded-full"
             />
           </div>
   `;
