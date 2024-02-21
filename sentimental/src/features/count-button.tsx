@@ -1,9 +1,30 @@
 import someCoolImage from "data-base64:~/../assets/Binary code.mp4"
-import { Moon, Sparkles } from "lucide-react"
+import { Loader2, Moon, Sparkles } from "lucide-react"
 import { useEffect, useState } from "react"
 
 import Chart from "./Chart"
 import DonutChartTr from "./DonutChartTr"
+
+interface Opinion {
+  target: string
+  assessment: {
+    value: string
+    sentiment: string
+    score: number
+  }[]
+}
+
+interface Sentence {
+  sentence: string
+  isPositive: number
+  isNegative: number
+  isNeutral: number
+  opinion: Opinion[]
+}
+
+interface Data {
+  [key: string]: Sentence
+}
 
 interface Aspect {
   value: string
@@ -14,17 +35,19 @@ interface Aspect {
 
 interface ResponseData {
   overall: {
-    positive: number[]
-    negative: number[]
-    neutral: number[]
+    p: number
+    n: number
+    nt: number
   }
-  nps: number
+  datas: Data[]
   aspects: Aspect[]
+  nps: number
 }
 
 export const CountButton = () => {
   const [url, setUrl] = useState("")
   const [response, setResponse] = useState<ResponseData | null>(null)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
@@ -33,6 +56,7 @@ export const CountButton = () => {
   }, [])
 
   const sendRequest = async () => {
+    setLoading(true)
     if (url) {
       try {
         const response = await fetch("http://127.0.0.1:4000/endpoint", {
@@ -52,8 +76,17 @@ export const CountButton = () => {
         console.error(error)
       }
     }
+    setLoading(false)
   }
 
+  const calculateCategoryValues = (responseData) => {
+    const { p, n, nt } = responseData.overall
+    return [
+      parseFloat((p * 100).toFixed(2)),
+      parseFloat((n * 100).toFixed(2)),
+      parseFloat((nt * 100).toFixed(2))
+    ]
+  }
   return (
     <>
       <div className="block w-[90%] mx-auto text-center">
@@ -84,8 +117,18 @@ export const CountButton = () => {
             </div>
           </>
         )}
+        {loading && (
+          <div className="spinner">
+            <Loader2 />
+          </div>
+        )}
         {response && <Chart data={response} aspects={response.aspects} />}
-        {response && <DonutChartTr data={response.nps * 10} />}{" "}
+        {response && (
+          <DonutChartTr
+            data={response.nps * 10}
+            categoryValues={calculateCategoryValues(response)}
+          />
+        )}
       </div>
     </>
   )
