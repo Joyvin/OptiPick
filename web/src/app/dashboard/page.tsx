@@ -324,7 +324,7 @@ const page = (props: Props) => {
                   onValueChange={(v) => console.log(v)}
                 />
               </div>
-              <div className="shadow-md rounded-md bg-transparent m-4">
+              {/* <div className="shadow-md rounded-md bg-transparent m-4">
                 <BarChart
                   data={chartdata2}
                   index="name"
@@ -345,7 +345,7 @@ const page = (props: Props) => {
                   valueFormatter={dataFormatter}
                   onValueChange={(v) => console.log(v)}
                 />
-              </div>
+              </div> */}
               {
                 Object.values(myData.datas[0]).map((value: any) => {
                   return (
@@ -423,23 +423,23 @@ const page = (props: Props) => {
               {
                 Object.values(myData.aspects).map((item: any) => {
                   return (
-                    <Card className="shadow-md rounded-lg mx-auto max-w-md" decoration="left" decorationColor="blue">
+                    <Card className="shadow-md rounded-lg mx-auto max-w-md flex flex-col gap-2" decoration="left" decorationColor="blue">
                       {item.sentiment === "positive" ? (
-                        <div>
+                        <div className="flex gap-2">
                           <BadgeDelta deltaType="increase" isIncreasePositive={true}>
                             {item.value}
                           </BadgeDelta>
                           <span className="text-white">{item.target}</span>
                         </div>
                       ) : item.sentiment === "negative" ? (
-                        <div>
+                        <div className="flex gap-2">
                           <BadgeDelta deltaType="decrease" isIncreasePositive={true}>
                             {item.value}
                           </BadgeDelta>
                           <span className="text-white">{item.target}</span>
                         </div>
                       ) : (
-                        <div>
+                        <div className="flex gap-2">
                           <BadgeDelta deltaType="increase" isIncreasePositive={true}>
                             {item.value}
                           </BadgeDelta>
