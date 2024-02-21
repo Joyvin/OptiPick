@@ -199,7 +199,7 @@ const page = (props: Props) => {
         setShowData2(true);
     };
     return (
-        <div className="grid md:grid-cols-2 grid-cols-1 relative z-[20] mt-20">
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-10 mx-10 relative z-[20] mt-20">
             {showData1 ? (
                 <div
                     className=""
@@ -465,7 +465,7 @@ const page = (props: Props) => {
                         </div>
                     </div>
 
-                    <div className="text-white fixed right-10 xl:w-[420px] lg:w-[300px] md:w-[200px] w-[50px] flex flex-col gap-4">
+                    <div className="text-white flex flex-col gap-4">
                         <img
                             src="/checker.png"
                             className="object-cover w-full h-full rounded-lg"
@@ -775,7 +775,7 @@ const page = (props: Props) => {
                         </div>
                     </div>
 
-                    <div className="text-white fixed right-10 xl:w-[420px] lg:w-[300px] md:w-[200px] w-[50px] flex flex-col gap-4">
+                    <div className="text-white flex flex-col gap-4">
                         <img
                             src="/checker.png"
                             className="object-cover w-full h-full rounded-lg"
