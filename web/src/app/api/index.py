@@ -104,6 +104,8 @@ async def scrape():
         soup = BeautifulSoup(response.text, 'html.parser')
         reviewEle = soup.findAll('span', {'class': 'review-text-content'})
         review1 = [i.text.replace("\n", '') for i in reviewEle]
+        # print(soup)
+        myData1, ts1, c1 = await sentiment_analysis(client, review1)
 
         response = requests.get(f"{url}?filterByStar=critical", headers=headers)
         response.raise_for_status()
@@ -114,7 +116,6 @@ async def scrape():
         review2 = review2[:new_length]
         # review = review1  review2
 
-        myData1, ts1, c1 = await sentiment_analysis(client, review1)
         myData2, ts2, c2 = await sentiment_analysis(client, review2)
 
         print(ts1, c1, ts2, c2)

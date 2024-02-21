@@ -9,12 +9,10 @@ export async function POST(request) {
 	// 	"localhost:3000/api/scrape?url=https://www.amazon.in/Colgate-Toothpaste-Visible-White-Sparkling/product-reviews/B00I6F64T2/"
 	// );
 
-	// const FormData = require("form-data");
+	// // const FormData = require("form-data");
+	// console.log(itemUrl);
 	var formdata = new FormData();
-	formdata.append(
-		"url",
-		"https://www.amazon.in/Colgate-Toothpaste-Visible-White-Sparkling/product-reviews/B00I6F64T2/"
-	);
+	formdata.append("url", itemUrl.replace("/dp/", "/product-reviews/"));
 
 	let res = await axios
 		.post("http://localhost:3000/api/scrape", formdata)
