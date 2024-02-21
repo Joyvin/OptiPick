@@ -161,6 +161,7 @@ const page = (props: Props) => {
   },[])
 
   async function getData(inputValue: string) {
+    var tp = inputValue
     var formdata = new FormData();
     formdata.append(
       "url",
@@ -173,6 +174,7 @@ const page = (props: Props) => {
         console.log(e.data);
         await scrapeDetails(inputValue);
         setMyData(e.data);
+        scrapeDetails(tp)
         setShowData(true)
         return e.data;
       });
@@ -189,7 +191,6 @@ const page = (props: Props) => {
       .post("http://localhost:3000/api/details", formdata)
       .then((e) => {
         console.log(e.data);
-        // setMyData(e.data);
         setDetails(e.data);
         return e.data;
       });
@@ -470,18 +471,25 @@ const page = (props: Props) => {
           </div>
 
           <div className="text-white fixed right-10 xl:w-[420px] lg:w-[300px] md:w-[200px] w-[50px] flex flex-col gap-4">
+            {details ? 
             <img
-              src="/checkup.png"
+              src={details.img}
               className="object-cover w-full h-full rounded-lg"
               alt=""
-            />
-            <h1>Product title</h1>
-            <p>
+            /> : <img
+            src="/checkup.png"
+            className="object-cover w-full h-full rounded-lg"
+            alt=""
+          />
+          }
+            {
+              details ? <h1>{details.title}</h1>  : <h1>Product title</h1>}
+            {/* <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam,
               consequatur quidem expedita harum voluptatem dolores odio debitis
               officia nemo possimus velit porro reiciendis, cum libero iusto
               corrupti illo, reprehenderit veniam.
-            </p>
+            </p> */}
           </div>
         </div>
       ) : (
