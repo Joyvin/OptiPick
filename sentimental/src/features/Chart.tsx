@@ -1,4 +1,4 @@
-import { Annoyed, ThumbsDown, ThumbsUp } from "lucide-react"
+import { Annoyed, ChevronRightCircle, ThumbsDown, ThumbsUp } from "lucide-react"
 import React, { useEffect, useState } from "react"
 
 interface Opinion {
@@ -42,10 +42,12 @@ interface ResponseData {
 
 const Chart = ({
   data,
-  aspects
+  aspects,
+  url
 }: {
   data: ResponseData
   aspects: Aspect[]
+  url: String
 }) => {
   const [chartData, setChartData] = useState([
     {
@@ -127,10 +129,8 @@ const Chart = ({
         })}
       </div>
 
-      <a href="/dashboard" className="pt-5">
-        <p className="text-blue-500 underline text-center">
-          Click here to know more about the product{" "}
-        </p>
+      <a href={`http://localhost:3000/dashboard?q=${url}`} target="blank" className="absolute right-3 bottom-3">
+        <ChevronRightCircle size={30}/>
       </a>
     </div>
   )

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AreaChart, Badge, BadgeDelta, BarChart, Card, CategoryBar, Icon, ProgressCircle } from "@tremor/react";
 import { RiCashFill, RiRecordCircleFill, RiRefreshLine } from "@remixicon/react";
 import { Button } from "@tremor/react";
@@ -151,6 +151,19 @@ const page = (props: Props) => {
   // const reviewLength = Object.keys(myData["datas"][0]).length
   const [details, setDetails] = useState<any>();
 
+  // useEffect(()=>{
+  //   const urlParams = new URLSearchParams(window.location.search);
+  //   const myUrl = urlParams.get('q');
+  //   if(myUrl){
+  //     setInputValue(myUrl)
+  //     customSubmit()
+  //   }
+  // },[])
+
+  // useEffect(()=>{
+  //   setShowData(true)
+  // }, [myData])
+
   async function getData(inputValue: string) {
     var formdata = new FormData();
     formdata.append(
@@ -185,6 +198,11 @@ const page = (props: Props) => {
       });
   }
 
+  // const customSubmit = async()=>{
+  //   await getData(inputValue);
+  //   setShowData(true);
+  // }
+
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -211,6 +229,7 @@ const page = (props: Props) => {
                   <Search className="text-white" />
                 </div>
                 <input
+                  value={inputValue}
                   type="search"
                   id="default-search"
                   className="block w-full  rounded-lg border border-gray-300 bg-gray-50 p-4 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"

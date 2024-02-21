@@ -5,11 +5,13 @@ import React from "react"
 interface DonutChartTrProps {
   data: number
   categoryValues: number[]
+  rating: number
 }
 
 export const DonutChartTr: React.FC<DonutChartTrProps> = ({
   data,
-  categoryValues
+  categoryValues,
+  rating
 }) => {
   return (
     <div className="w-[90%] mx-auto">
@@ -17,6 +19,7 @@ export const DonutChartTr: React.FC<DonutChartTrProps> = ({
         <Sparkles />
         <h1 className="font-bold text-xl">Welcome to OptiPick</h1>
       </div> */}
+      <h1 className="font-semibold text-lg">Product Name</h1>
       <div className=" grid grid-cols-1 gap-12 ">
         <div className="flex justify-center my-3">
           <ProgressCircle
@@ -33,11 +36,11 @@ export const DonutChartTr: React.FC<DonutChartTrProps> = ({
       <Card className="mx-auto max-w-sm my-3">
         <p className="text-tremor-default text-tremor-content dark:text-dark-tremor-content flex items-center justify-between">
           <span>Product Rating</span>
-          <span>{data}%</span>
+          <span>{rating}</span>
         </p>
         <CategoryBar
           values={categoryValues}
-          colors={["rose", "orange", "yellow", "emerald"]}
+          colors={["rose", "orange", "emerald"]}
           markerValue={data}
           className="mt-3"
         />
