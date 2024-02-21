@@ -165,13 +165,17 @@ def getDetails():
         return json.dumps({"title": "", "img": ""})
     
     response = requests.get(url, headers={
-       "User-Agent": "*"
+        'User-Agent': 'Your User Agent Here',
     })
     response.raise_for_status()
     soup = BeautifulSoup(response.text, 'html.parser')
+    
+    print(soup)
 
-    ele = soup.find('span', {'id': 'productTitle'}).text.strip()
-    img = soup.find('img', {'id': 'landingImage'}).get('src')
+    ele = soup.find('span', {'id': 'productTitle'})
+    ele = ele.text.strip() if ele else ''
+    img = soup.find('img', {'id': 'landingImage'})
+    img = img.get('src') if img else ''
 
     return json.dumps({"title": ele, "img": img})
 

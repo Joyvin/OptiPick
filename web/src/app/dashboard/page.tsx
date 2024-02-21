@@ -149,6 +149,7 @@ const page = (props: Props) => {
   const [showData, setShowData] = useState(false);
   const [myData, setMyData] = useState<any>();
   // const reviewLength = Object.keys(myData["datas"][0]).length
+  const [details, setDetails] = useState<any>();
 
   // useEffect(()=>{
   //   const urlParams = new URLSearchParams(window.location.search);
@@ -172,9 +173,27 @@ const page = (props: Props) => {
 
     let res = await axios
       .post("http://localhost:3000/api/scrape", formdata)
+      .then(async (e) => {
+        console.log(e.data);
+        await scrapeDetails(inputValue);
+        setMyData(e.data);
+        return e.data;
+      });
+  }
+
+  async function scrapeDetails(inputValue: string) {
+    var formdata = new FormData();
+    formdata.append(
+      "url",
+      inputValue
+    );
+
+    let res = await axios
+      .post("http://localhost:3000/api/details", formdata)
       .then((e) => {
         console.log(e.data);
-        setMyData(e.data);
+        // setMyData(e.data);
+        setDetails(e.data);
         return e.data;
       });
   }
@@ -461,11 +480,11 @@ const page = (props: Props) => {
 
           <div className="text-white fixed right-10 xl:w-[420px] lg:w-[300px] md:w-[200px] w-[50px] flex flex-col gap-4">
             <img
-              src="/checker.png"
+              src="/checkup.png"
               className="object-cover w-full h-full rounded-lg"
               alt=""
             />
-            <h1>Product Name </h1>
+            <h1>Product title</h1>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam,
               consequatur quidem expedita harum voluptatem dolores odio debitis
