@@ -33,8 +33,8 @@ const Navbar = () => {
             <a href="/chatbot" className="cursor-pointer">
               Chatbot
             </a>
-            <a href="#" className="cursor-pointer">
-              Contact
+            <a href="/compare" className="cursor-pointer">
+              Compare
             </a>
           </div>
         </div>
