@@ -1,5 +1,6 @@
 import someCoolImage from "data-base64:~/../assets/Binary code.mp4"
-import { Loader2, Moon, Sparkles } from "lucide-react"
+import Loader from "data-base64:~/../assets/Loader.mp4"
+import { Moon, Sparkles } from "lucide-react"
 import { useEffect, useState } from "react"
 
 import Chart from "./Chart"
@@ -101,14 +102,11 @@ export const CountButton = () => {
               experienced by customers
             </p>
             {/* <img src={someCoolImage} alt="Some pretty cool image" /> */}
-            <video src={someCoolImage} muted autoPlay loop />
+            {
+              !loading && (<video src={someCoolImage} muted autoPlay loop />)
+            }
+            
             <div className="absolute bottom-4 right-4 flex gap-3">
-              <button
-                className="rounded-md p-2 px-4 border border-black "
-                onClick={sendRequest}>
-                <Moon size={20} />
-              </button>
-
               <button
                 className="rounded-md p-2 px-4 border border-black"
                 onClick={sendRequest}>
@@ -118,17 +116,18 @@ export const CountButton = () => {
           </>
         )}
         {loading && (
-          <div className="spinner">
-            <Loader2 />
+          <div className="">
+            <video src={Loader} muted autoPlay loop />
           </div>
         )}
-        {response && <Chart data={response} aspects={response.aspects} />}
+        
         {response && (
           <DonutChartTr
             data={response.nps * 10}
             categoryValues={calculateCategoryValues(response)}
           />
         )}
+        {response && <Chart data={response} aspects={response.aspects} />}
       </div>
     </>
   )

@@ -13,10 +13,10 @@ export const DonutChartTr: React.FC<DonutChartTrProps> = ({
 }) => {
   return (
     <div className="w-[90%] mx-auto">
-      <div className="flex justify-center flex-row gap-3 my-4 border-b pb-2">
+      {/* <div className="flex justify-center flex-row gap-3 my-4 border-b pb-2">
         <Sparkles />
         <h1 className="font-bold text-xl">Welcome to OptiPick</h1>
-      </div>
+      </div> */}
       <h1 className="font-semibold text-lg">Product Name</h1>
       <div className=" grid grid-cols-1 gap-12 ">
         <div className="flex justify-center my-3">
