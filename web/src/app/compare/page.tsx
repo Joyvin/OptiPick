@@ -151,9 +151,12 @@ const page = (props: Props) => {
     const [showData2, setShowData2] = useState(false);
     const [myData1, setMyData1] = useState<any>();
     const [myData2, setMyData2] = useState<any>();
+    const [loading1, setLoading1] = useState(false);
+    const [loading2, setLoading2] = useState(false);
     // const reviewLength = Object.keys(myData["datas"][0]).length
 
     async function getData1(inputValue1: string) {
+        setLoading1(true);
         var formdata = new FormData();
         formdata.append(
             "url",
@@ -165,11 +168,14 @@ const page = (props: Props) => {
             .then((e) => {
                 console.log(e.data);
                 setMyData1(e.data);
+                setLoading1(false);
+                setShowData1(true);
                 return e.data;
             });
     }
 
     async function getData2(inputValue2: string) {
+        setLoading2(true);
         var formdata = new FormData();
         formdata.append(
             "url",
@@ -181,6 +187,8 @@ const page = (props: Props) => {
             .then((e) => {
                 console.log(e.data);
                 setMyData2(e.data);
+                setLoading2(false);
+                setShowData2(true);
                 return e.data;
             });
     }
@@ -190,13 +198,12 @@ const page = (props: Props) => {
         e.preventDefault();
         e.target.reset();
         await getData1(inputValue1);
-        setShowData1(true);
+        
     };
     const handleSubmit2 = async (e: any) => {
         e.preventDefault();
         e.target.reset();
         await getData2(inputValue2);
-        setShowData2(true);
     };
     return (
         <div className="grid md:grid-cols-2 grid-cols-1 gap-10 mx-10 relative z-[20] mt-20">
@@ -228,6 +235,7 @@ const page = (props: Props) => {
                                     type="submit"
                                     className="absolute bottom-2.5 end-2.5 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                 >
+                                    {loading1 && <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24"></svg>}
                                     Submit
                                 </button>
                             </div>
@@ -504,6 +512,7 @@ const page = (props: Props) => {
                             type="submit"
                             className="absolute bottom-2.5 end-2.5 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                         >
+                            {loading1 && <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24"></svg>}
                             Submit
                         </button>
                     </div>
@@ -538,6 +547,7 @@ const page = (props: Props) => {
                                     type="submit"
                                     className="absolute bottom-2.5 end-2.5 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                 >
+                                    {loading2 && <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24"></svg>}
                                     Submit
                                 </button>
                             </div>
@@ -812,8 +822,9 @@ const page = (props: Props) => {
                         />
                         <button
                             type="submit"
-                            className="absolute bottom-2.5 end-2.5 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            className="absolute bottom-2.5 end-2.5 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex"
                         >
+                            {loading2 && <svg className="animate-spin h-5 w-5 mr-3 text-white" viewBox="0 0 24 24"></svg>}
                             Submit
                         </button>
                     </div>
