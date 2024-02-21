@@ -125,6 +125,23 @@ def scrape():
     else:
         print("Cant find url")
 
+@app.route('/api/details', methods=['POST'])
+def getDetails():
+    url = request.form.get('url')
+
+    if not url:
+        return json.dumps({"title": "", "img": ""})
+    
+    response = requests.get(url, headers={
+       "User-Agent": "*"
+    })
+    response.raise_for_status()
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    ele = soup.find('span', {'id': 'productTitle'}).text.strip()
+    img = soup.find('img', {'id': 'landingImage'}).get('src')
+
+    return json.dumps({"title": ele, "img": img})
 
 if __name__ == '__main__':
     app.run()

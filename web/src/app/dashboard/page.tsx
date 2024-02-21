@@ -5,29 +5,12 @@ import { RiCashFill, RiRecordCircleFill, RiRefreshLine } from "@remixicon/react"
 import { Button } from "@tremor/react";
 import { DonutChart } from "@tremor/react";
 import { Search } from "lucide-react";
-import Image from "next/image";
+// import Image from "next/image";
 import axios from "axios";
-import dummyData from "@/data/dummyData";
+// import myData from "@/data/myData";
 import { green } from "tailwindcss/colors";
 
-async function getData(inputValue: string) {
-  var formdata = new FormData();
-	formdata.append(
-		"url",
-		inputValue.replace('/dp/', '/product-reviews/')
-	);
-
-	let res = await axios
-		.post("http://localhost:3000/api/scrape", formdata)
-		.then((e) => {
-			console.log(e.data);
-			return e.data;
-		});
-}
-
-const reviewLength = Object.keys(dummyData["datas"][0]).length
-
-// Object.values(dummyData.datas[0]).forEach((value) => {
+// Object.values(myData.datas[0]).forEach((value) => {
 //   console.log(value.sentence);
 // })
 
@@ -159,14 +142,36 @@ const dataFormatter = (number: number) =>
 type Props = {};
 
 const page = (props: Props) => {
+  interface MyData {
+    overall: any
+  }
   const [inputValue, setInputValue] = useState("");
   const [showData, setShowData] = useState(false);
+  const [myData, setMyData] = useState<any>();
+  // const reviewLength = Object.keys(myData["datas"][0]).length
 
-  const handleSubmit = (e: any) => {
+  async function getData(inputValue: string) {
+    var formdata = new FormData();
+    formdata.append(
+      "url",
+      inputValue.replace('/dp/', '/product-reviews/')
+    );
+
+    let res = await axios
+      .post("http://localhost:3000/api/scrape", formdata)
+      .then((e) => {
+        console.log(e.data);
+        setMyData(e.data);
+        return e.data;
+      });
+  }
+
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     e.target.reset();
+    await getData(inputValue);
     setShowData(true);
-    getData(inputValue);
   };
   return (
     <div className="">
@@ -212,10 +217,15 @@ const page = (props: Props) => {
                     tooltip="Sum of Sales"
                     size="lg"
                   />
-                  <div>
-                    <p className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">Reviews</p>
-                    <p className="text-xl text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">{reviewLength}</p>
-                  </div>
+                  {myData && myData.datas && myData.datas.length !== 0 && (
+                    <div>
+                      <p className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">Reviews</p>
+                      <p className="text-xl text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">
+                        {Object.keys(myData.datas[0]).length + Object.keys(myData.datas[1]).length}
+                      </p>
+                    </div>
+                  )}
+
                   <Badge icon={RiRecordCircleFill}>live</Badge>
                 </div>
               </Card>
@@ -235,42 +245,42 @@ const page = (props: Props) => {
               <div className="col-span-1 flex flex-col gap-2">
                 <div className="space-y-3">
                   <p className="text-center font-mono text-sm text-slate-500">
-                    Total Positive Reviews - {dummyData.overall.p * 100}%
+                    Total Positive Reviews - {myData.overall.p * 100}%
                   </p>
                   <div className="flex justify-center">
                     <Card className="max-w-sm" decoration="left" decorationColor="green">
                       <CategoryBar
                         values={[40, 30, 20, 10]}
                         colors={['emerald', 'yellow', 'orange', 'rose']}
-                        markerValue={dummyData.overall.p * 100}
+                        markerValue={myData.overall.p * 100}
                       />
                     </Card>
                   </div>
                 </div>
                 <div className="space-y-3">
                   <p className="text-center font-mono text-sm text-slate-500">
-                    Total Negative Reviews - {dummyData.overall.n * 100}%
+                    Total Negative Reviews - {myData.overall.n * 100}%
                   </p>
                   <div className="flex justify-center">
                     <Card className="max-w-sm" decoration="left" decorationColor="red">
                       <CategoryBar
                         values={[40, 30, 20, 10]}
                         colors={['emerald', 'yellow', 'orange', 'rose']}
-                        markerValue={dummyData.overall.n * 100}
+                        markerValue={myData.overall.n * 100}
                       />
                     </Card>
                   </div>
                 </div>
                 <div className="space-y-3">
                   <p className="text-center font-mono text-sm text-slate-500">
-                    Total Neutral Reviews - {dummyData.overall.nt * 100}%
+                    Total Neutral Reviews - {myData.overall.nt * 100}%
                   </p>
                   <div className="flex justify-center">
                     <Card className="max-w-sm" decoration="left" decorationColor="indigo">
                       <CategoryBar
                         values={[40, 30, 20, 10]}
                         colors={['emerald', 'yellow', 'orange', 'rose']}
-                        markerValue={dummyData.overall.nt * 100}
+                        markerValue={myData.overall.nt * 100}
                       />
                     </Card>
                   </div>
@@ -311,7 +321,7 @@ const page = (props: Props) => {
                 />
               </div>
               {
-                Object.values(dummyData.datas[0]).map((value) => {
+                Object.values(myData.datas[0]).map((value: any) => {
                   return (
                     <Card className="shadow-md rounded-lg mx-auto max-w-md" decoration="left" decorationColor="blue">
                       <div className="flex flex-col items-center justify-center gap-4">
@@ -343,6 +353,86 @@ const page = (props: Props) => {
                           </div>
                         </div>
                       </div>
+                    </Card>
+                  )
+                })
+              }
+              {
+                Object.values(myData.datas[1]).map((value: any) => {
+                  return (
+                    <Card className="shadow-md rounded-lg mx-auto max-w-md" decoration="left" decorationColor="blue">
+                      <div className="flex flex-col items-center justify-center gap-4">
+                        <p className="text-gray-300 font-semibold text-center">{value.sentence}</p>
+                        <div className="flex gap-6 justify-center items-center">
+                          <div className="flex flex-col gap-4">
+                            <span className="text-center block font-mono text-tremor-default text-tremor-content dark:text-dark-tremor-content">
+                              Positive
+                            </span>
+                            <ProgressCircle value={value.isPositive * 100} size="md" color="green">
+                              <span className="text-xs font-medium text-white">{Math.round(value.isPositive * 100)}%</span>
+                            </ProgressCircle>
+                          </div>
+                          <div className="flex flex-col gap-4">
+                            <span className="text-center block font-mono text-tremor-default text-tremor-content dark:text-dark-tremor-content">
+                              Negative
+                            </span>
+                            <ProgressCircle value={value.isNegative * 100} size="md" color="red">
+                              <span className="text-xs font-medium text-white">{Math.round(value.isNegative * 100)}%</span>
+                            </ProgressCircle>
+                          </div>
+                          <div className="flex flex-col gap-4">
+                            <span className="text-center block font-mono text-tremor-default text-tremor-content dark:text-dark-tremor-content">
+                              Neutral
+                            </span>
+                            <ProgressCircle value={value.isNegative * 100} size="md" color="indigo">
+                              <span className="text-xs font-medium text-white">{Math.round(value.isNegative * 100)}%</span>
+                            </ProgressCircle>
+                          </div>
+                        </div>
+                      </div>
+                    </Card>
+                  )
+                })
+              }
+              {
+                Object.values(myData.aspects).map((item: any) => {
+                  return (
+                    <Card className="shadow-md rounded-lg mx-auto max-w-md" decoration="left" decorationColor="blue">
+                      {item.sentiment === "positive" ? (
+                        <div>
+                          <BadgeDelta deltaType="increase" isIncreasePositive={true}>
+                            {item.value}
+                          </BadgeDelta>
+                          <span className="text-white">{item.target}</span>
+                        </div>
+                      ) : item.sentiment === "negative" ? (
+                        <div>
+                          <BadgeDelta deltaType="decrease" isIncreasePositive={true}>
+                            {item.value}
+                          </BadgeDelta>
+                          <span className="text-white">{item.target}</span>
+                        </div>
+                      ) : (
+                        <div>
+                          <BadgeDelta deltaType="increase" isIncreasePositive={true}>
+                            {item.value}
+                          </BadgeDelta>
+                          <span className="text-white">{item.target}</span>
+                        </div>
+                      )}
+                      {item.sentiment === "positive" ? (
+                        <Badge icon={RiCashFill} color="green">
+                          {item.sentiment}
+                        </Badge>
+                      ) : item.sentiment === "negative" ? (
+                        <Badge icon={RiCashFill} color="red">
+                          {item.sentiment}
+                        </Badge>
+                      ) : (
+                        <Badge icon={RiCashFill} color="blue">
+                          {item.sentiment}
+                        </Badge>
+                      )}
                     </Card>
                   )
                 })
