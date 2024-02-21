@@ -88,6 +88,21 @@ export const CountButton = () => {
       parseFloat((nt * 100).toFixed(2))
     ]
   }
+
+  const calculateFinalValue = (responseData) => {
+    const { p, n, nt } = responseData.overall
+
+    const totalSentiments = p + n + nt
+
+    const successPercentage = (p / totalSentiments) * 100
+
+    const weightedSuccessPercentage =
+      (successPercentage + responseData.nps * 10) / 2
+
+    // Convert the string back to a number
+    return parseFloat(weightedSuccessPercentage.toFixed(2))
+  }
+
   return (
     <>
       <div className="block w-[90%] mx-auto text-center">
@@ -102,10 +117,8 @@ export const CountButton = () => {
               experienced by customers
             </p>
             {/* <img src={someCoolImage} alt="Some pretty cool image" /> */}
-            {
-              !loading && (<video src={someCoolImage} muted autoPlay loop />)
-            }
-            
+            {!loading && <video src={someCoolImage} muted autoPlay loop />}
+
             <div className="absolute bottom-4 right-4 flex gap-3">
               <button
                 className="rounded-md p-2 px-4 border border-black"
@@ -120,10 +133,10 @@ export const CountButton = () => {
             <video src={Loader} muted autoPlay loop />
           </div>
         )}
-        
+
         {response && (
           <DonutChartTr
-            data={response.nps * 10}
+            data={calculateFinalValue(response)}
             categoryValues={calculateCategoryValues(response)}
           />
         )}
