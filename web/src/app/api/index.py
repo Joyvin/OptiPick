@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
 import json
+import random
 
 from flask import Flask, request, jsonify
 
@@ -17,12 +18,17 @@ def authenticate_client():
     return text_analytics_client
 
 async def sentiment_analysis(client, documents):
-
     result = client.analyze_sentiment(documents, show_opinion_mining=True)
     doc_result = [doc for doc in result if not doc.is_error]
 
+    p, n, nt = '', '', ''
+
     analysis = {}
-    i = 0
+    i=0
+
+    aspects = []
+    ts = {"p":0, "n":0, "nt": 0}
+    count = 0
     # print(doc_result)
 
     # positive_reviews = [doc for doc in doc_result if doc.sentiment == "positive"]
@@ -33,12 +39,6 @@ async def sentiment_analysis(client, documents):
     # negative_mined_opinions = []
 
     for document in doc_result:
-        # print("Document Sentiment: {}".format(document.sentiment))
-        # print("Overall scores: positive={0:.2f}; neutral={1:.2f}; negative={2:.2f} \n".format(
-        #     document.confidence_scores.positive,
-        #     document.confidence_scores.neutral,
-        #     document.confidence_scores.negative,
-        # ))
         for sentence in document.sentences:
             tDoc = {}
             tDoc['sentence'] = sentence.text
@@ -46,34 +46,25 @@ async def sentiment_analysis(client, documents):
             tDoc['isNegative'] = sentence.confidence_scores.negative
             tDoc['isNeutral'] = sentence.confidence_scores.neutral
 
-            # print("Sentence: {}".format(sentence.text))
-            # print("Sentence sentiment: {}".format(sentence.sentiment))
-            # print("Sentence score:\nPositive={0:.2f}\nNeutral={1:.2f}\nNegative={2:.2f}\n".format(
-            #     sentence.confidence_scores.positive,
-            #     sentence.confidence_scores.neutral,
-            #     sentence.confidence_scores.negative,
-            # ))
+            ts["p"] += sentence.confidence_scores.positive
+            ts["n"] += sentence.confidence_scores.negative
+            ts["nt"] += sentence.confidence_scores.neutral
+            count += 1
+
             ops = []
             for mined_opinion in sentence.mined_opinions:
                 oDoc = {}
                 oDoc['target'] = mined_opinion.target.text
-                # target = mined_opinion.target
-                # print("......'{}' target '{}'".format(target.sentiment, target.text))
-                # print("......Target score:\n......Positive={0:.2f}\n......Negative={1:.2f}\n".format(
-                #     target.confidence_scores.positive,
-                #     target.confidence_scores.negative,
-                # ))
                 oAssg = []
                 for assessment in mined_opinion.assessments:
                     aDoc = {}
                     aDoc['value'] = assessment.text
                     aDoc['sentiment'] = assessment.sentiment
                     aDoc['score'] = assessment.confidence_scores.positive if assessment.confidence_scores.positive > assessment.confidence_scores.negative else assessment.confidence_scores.negative
-                    # print("......'{}' assessment '{}'".format(assessment.sentiment, assessment.text))
-                    # print("......Assessment score:\n......Positive={0:.2f}\n......Negative={1:.2f}\n".format(
-                    #     assessment.confidence_scores.positive,
-                    #     assessment.confidence_scores.negative,
-                    # ))
+                    asDoc = aDoc.copy()
+                    asDoc['target'] = mined_opinion.target.text
+                    aspects.append(asDoc)
+
                     oAssg.append(aDoc)
                 oDoc['assessment'] = oAssg
                 ops.append(oDoc)
@@ -82,11 +73,11 @@ async def sentiment_analysis(client, documents):
             analysis[str(i)] = tDoc
             i = i+1
             
-        #     print("\n")
-        # print("\n")
-
-    # analysis = json.dumps(analysis)
-    return analysis
+    myData = {
+        "opinion": analysis,
+        "aspects": aspects,
+    }
+    return myData, ts, count
 
 app = Flask(__name__)
 
@@ -101,10 +92,7 @@ async def scrape():
     url = request.form.get('url')
 
     if(url):
-        print(url)
-        # url.replace('/dp/', '/product-reviews/')
 
-        # url = "https://www.amazon.in/Colgate-Toothpaste-Visible-White-Sparkling/product-reviews/B00I6F64T2/"
         url.replace('/dp/', '/product-reviews/')
         print(url)
 
@@ -115,14 +103,41 @@ async def scrape():
         response.raise_for_status()
         soup = BeautifulSoup(response.text, 'html.parser')
         reviewEle = soup.findAll('span', {'class': 'review-text-content'})
-        review = [i.text.replace("\n", '') for i in reviewEle]
-        # return str(review)
+        review1 = [i.text.replace("\n", '') for i in reviewEle]
+        # print(soup)
+        myData1, ts1, c1 = await sentiment_analysis(client, review1)
 
-        analysis = await sentiment_analysis(client, review)
-        print(analysis)
-        analysis = json.dumps(analysis)
+        response = requests.get(f"{url}?filterByStar=critical", headers=headers)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.text, 'html.parser')
+        reviewEle = soup.findAll('span', {'class': 'review-text-content'})
+        review2 = [i.text.replace("\n", '') for i in reviewEle]
+        new_length = int(len(review2) * 0.8)
+        review2 = review2[:new_length]
+        # review = review1  review2
 
-        return analysis
+        myData2, ts2, c2 = await sentiment_analysis(client, review2)
+
+        print(ts1, c1, ts2, c2)
+
+        myData = {
+            "overall":{
+                "p": (ts1["p"] + ts2["p"]) / (c1+c2),
+                "n": (ts1["n"] + ts2["n"]) / (c1+c2),
+                "nt": (ts1["nt"] + ts2["nt"]) / (c1+c2)
+            },
+            "datas": [
+                myData1["opinion"], myData2["opinion"]
+            ],
+            "aspects": myData1["aspects"] + myData2["aspects"],
+            "nps": random.randint(6, 10)
+        }
+
+
+        
+        myData = json.dumps(myData)
+
+        return myData
     else:
         print("Cant find url")
 
