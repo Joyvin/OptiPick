@@ -151,18 +151,14 @@ const page = (props: Props) => {
   // const reviewLength = Object.keys(myData["datas"][0]).length
   const [details, setDetails] = useState<any>();
 
-  // useEffect(()=>{
-  //   const urlParams = new URLSearchParams(window.location.search);
-  //   const myUrl = urlParams.get('q');
-  //   if(myUrl){
-  //     setInputValue(myUrl)
-  //     customSubmit()
-  //   }
-  // },[])
-
-  // useEffect(()=>{
-  //   setShowData(true)
-  // }, [myData])
+  useEffect(()=>{
+    const urlParams = new URLSearchParams(window.location.search);
+    const myUrl = urlParams.get('q');
+    if(myUrl){
+      setInputValue(myUrl)
+      getData(myUrl);
+    }
+  },[])
 
   async function getData(inputValue: string) {
     var formdata = new FormData();
@@ -177,6 +173,7 @@ const page = (props: Props) => {
         console.log(e.data);
         await scrapeDetails(inputValue);
         setMyData(e.data);
+        setShowData(true)
         return e.data;
       });
   }
@@ -198,17 +195,11 @@ const page = (props: Props) => {
       });
   }
 
-  // const customSubmit = async()=>{
-  //   await getData(inputValue);
-  //   setShowData(true);
-  // }
-
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     e.target.reset();
     await getData(inputValue);
-    setShowData(true);
   };
   return (
     <div className="">
