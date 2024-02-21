@@ -263,16 +263,10 @@ const page = (props: Props) => {
               </Card>
               <Card className="mx-auto max-w-sm" decoration="top" decorationColor="yellow">
                 <div className="flex items-center justify-between">
-                  <h4 className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">Sales</h4>
-                  <BadgeDelta
-                    deltaType="moderateIncrease"
-                    isIncreasePositive={true}
-                    size="xs"
-                  >
-                    +9.3%
-                  </BadgeDelta>
+                  <h4 className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">NPS</h4>
+                  <Badge icon={RiRecordCircleFill}>live</Badge>
                 </div>
-                <p className="text-tremor-metric text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">$23,456</p>
+                <p className="text-tremor-metric text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">{myData.nps}</p>
               </Card>
               <div className="col-span-1 flex flex-col gap-2">
                 <div className="space-y-3">

@@ -151,12 +151,9 @@ const page = (props: Props) => {
     const [showData2, setShowData2] = useState(false);
     const [myData1, setMyData1] = useState<any>();
     const [myData2, setMyData2] = useState<any>();
-    const [loading1, setLoading1] = useState(false);
-    const [loading2, setLoading2] = useState(false);
     // const reviewLength = Object.keys(myData["datas"][0]).length
 
     async function getData1(inputValue1: string) {
-        setLoading1(true);
         var formdata = new FormData();
         formdata.append(
             "url",
@@ -168,14 +165,12 @@ const page = (props: Props) => {
             .then((e) => {
                 console.log(e.data);
                 setMyData1(e.data);
-                setLoading1(false);
                 setShowData1(true);
                 return e.data;
             });
     }
 
     async function getData2(inputValue2: string) {
-        setLoading2(true);
         var formdata = new FormData();
         formdata.append(
             "url",
@@ -187,7 +182,6 @@ const page = (props: Props) => {
             .then((e) => {
                 console.log(e.data);
                 setMyData2(e.data);
-                setLoading2(false);
                 setShowData2(true);
                 return e.data;
             });
@@ -235,7 +229,6 @@ const page = (props: Props) => {
                                     type="submit"
                                     className="absolute bottom-2.5 end-2.5 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                 >
-                                    {loading1 && <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24"></svg>}
                                     Submit
                                 </button>
                             </div>
@@ -265,15 +258,9 @@ const page = (props: Props) => {
                             <Card className="mx-auto max-w-sm" decoration="top" decorationColor="yellow">
                                 <div className="flex items-center justify-between">
                                     <h4 className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">NPS</h4>
-                                    <BadgeDelta
-                                        deltaType="moderateIncrease"
-                                        isIncreasePositive={true}
-                                        size="xs"
-                                    >
-                                        +9.3%
-                                    </BadgeDelta>
+                                    <Badge icon={RiRecordCircleFill}>live</Badge>
                                 </div>
-                                <p className="text-tremor-metric text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">{myData1.overall.nps}</p>
+                                <p className="text-tremor-metric text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">{myData1.nps}</p>
                             </Card>
                             <div className="col-span-1 flex flex-col gap-2">
                                 <div className="space-y-3">
@@ -331,7 +318,7 @@ const page = (props: Props) => {
                                     onValueChange={(v) => console.log(v)}
                                 />
                             </div>
-                            <div className="shadow-md rounded-md bg-transparent m-4">
+                            {/* <div className="shadow-md rounded-md bg-transparent m-4">
                                 <BarChart
                                     data={chartdata2}
                                     index="name"
@@ -352,7 +339,7 @@ const page = (props: Props) => {
                                     valueFormatter={dataFormatter}
                                     onValueChange={(v) => console.log(v)}
                                 />
-                            </div>
+                            </div> */}
                             {
                                 Object.values(myData1.datas[0]).map((value: any) => {
                                     return (
@@ -473,7 +460,7 @@ const page = (props: Props) => {
                         </div>
                     </div>
 
-                    <div className="text-white flex flex-col gap-4">
+                    {/* <div className="text-white flex flex-col gap-4">
                         <img
                             src="/checker.png"
                             className="object-cover w-full h-full rounded-lg"
@@ -486,7 +473,7 @@ const page = (props: Props) => {
                             officia nemo possimus velit porro reiciendis, cum libero iusto
                             corrupti illo, reprehenderit veniam.
                         </p>
-                    </div>
+                    </div> */}
                 </div>
             ) : (
                 <form onSubmit={handleSubmit1} className="md:w-[90%] mx-auto">
@@ -512,7 +499,6 @@ const page = (props: Props) => {
                             type="submit"
                             className="absolute bottom-2.5 end-2.5 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                         >
-                            {loading1 && <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24"></svg>}
                             Submit
                         </button>
                     </div>
@@ -547,7 +533,6 @@ const page = (props: Props) => {
                                     type="submit"
                                     className="absolute bottom-2.5 end-2.5 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                 >
-                                    {loading2 && <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24"></svg>}
                                     Submit
                                 </button>
                             </div>
@@ -577,15 +562,9 @@ const page = (props: Props) => {
                             <Card className="mx-auto max-w-sm" decoration="top" decorationColor="yellow">
                                 <div className="flex items-center justify-between">
                                     <h4 className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">NPS</h4>
-                                    <BadgeDelta
-                                        deltaType="moderateIncrease"
-                                        isIncreasePositive={true}
-                                        size="xs"
-                                    >
-                                        +9.3%
-                                    </BadgeDelta>
+                                    <Badge icon={RiRecordCircleFill}>live</Badge>
                                 </div>
-                                <p className="text-tremor-metric text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">{myData2.overall.nps}</p>
+                                <p className="text-tremor-metric text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">{myData2.nps}</p>
                             </Card>
                             <div className="col-span-1 flex flex-col gap-2">
                                 <div className="space-y-3">
@@ -643,7 +622,7 @@ const page = (props: Props) => {
                                     onValueChange={(v) => console.log(v)}
                                 />
                             </div>
-                            <div className="shadow-md rounded-md bg-transparent m-4">
+                            {/* <div className="shadow-md rounded-md bg-transparent m-4">
                                 <BarChart
                                     data={chartdata2}
                                     index="name"
@@ -664,7 +643,7 @@ const page = (props: Props) => {
                                     valueFormatter={dataFormatter}
                                     onValueChange={(v) => console.log(v)}
                                 />
-                            </div>
+                            </div> */}
                             {
                                 Object.values(myData2.datas[0]).map((value: any) => {
                                     return (
@@ -785,7 +764,7 @@ const page = (props: Props) => {
                         </div>
                     </div>
 
-                    <div className="text-white flex flex-col gap-4">
+                    {/* <div className="text-white flex flex-col gap-4">
                         <img
                             src="/checker.png"
                             className="object-cover w-full h-full rounded-lg"
@@ -798,7 +777,7 @@ const page = (props: Props) => {
                             officia nemo possimus velit porro reiciendis, cum libero iusto
                             corrupti illo, reprehenderit veniam.
                         </p>
-                    </div>
+                    </div> */}
                 </div>
             ) : (
                 <form onSubmit={handleSubmit2} className="md:w-[90%] mx-auto">
@@ -822,9 +801,8 @@ const page = (props: Props) => {
                         />
                         <button
                             type="submit"
-                            className="absolute bottom-2.5 end-2.5 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex"
+                            className="absolute bottom-2.5 end-2.5 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                         >
-                            {loading2 && <svg className="animate-spin h-5 w-5 mr-3 text-white" viewBox="0 0 24 24"></svg>}
                             Submit
                         </button>
                     </div>
