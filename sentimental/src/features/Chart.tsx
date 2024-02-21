@@ -1,6 +1,27 @@
 import { Annoyed, ThumbsDown, ThumbsUp } from "lucide-react"
 import React, { useEffect, useState } from "react"
 
+interface Opinion {
+  target: string
+  assessment: {
+    value: string
+    sentiment: string
+    score: number
+  }[]
+}
+
+interface Sentence {
+  sentence: string
+  isPositive: number
+  isNegative: number
+  isNeutral: number
+  opinion: Opinion[]
+}
+
+interface Data {
+  [key: string]: Sentence
+}
+
 interface Aspect {
   value: string
   sentiment: string
@@ -10,12 +31,13 @@ interface Aspect {
 
 interface ResponseData {
   overall: {
-    positive: number[]
-    negative: number[]
-    neutral: number[]
+    p: number
+    n: number
+    nt: number
   }
-  nps: number
+  datas: Data[]
   aspects: Aspect[]
+  nps: number
 }
 
 const Chart = ({
@@ -48,17 +70,17 @@ const Chart = ({
       {
         quality: "Excellent",
         type: "positive",
-        percentage: data.overall.positive[0]
+        percentage: data.overall.p
       },
       {
         quality: "Fine",
         type: "neutral",
-        percentage: data.overall.neutral[0]
+        percentage: data.overall.nt
       },
       {
         quality: "Poor",
         type: "negative",
-        percentage: data.overall.negative[0]
+        percentage: data.overall.n
       }
     ])
   }, [data])
@@ -70,15 +92,15 @@ const Chart = ({
             {value.type === "positive" && <ThumbsUp />}
             {value.type === "neutral" && <Annoyed />}
             {value.type === "negative" && <ThumbsDown />}
-            {value.percentage * 100}%
+            {(value.percentage * 100).toFixed(2)}%
           </div>
         ))}
       </div>
-      <div className="w-full flex justify-center flex-row gap-3 my-2">
+      <div className="w-full flex flex-row gap-3 my-2 overflow-x-auto">
         {aspects.map((aspect, i) => (
           <div
             key={i}
-            className="block shadow-md rounded-full px-3 py-2 border border-green-500">
+            className="flex items-center justify-center block shadow-md rounded-full px-3 py-2 border border-green-500">
             {aspect.target}: {aspect.value}
           </div>
         ))}
@@ -86,24 +108,25 @@ const Chart = ({
           return values.type === "positive" ? (
             <div
               key={i}
-              className="block shadow-md rounded-full px-3 py-2 border border-green-500">
+              className="flex items-center justify-center block shadow-md rounded-full px-3 py-2 border border-green-500">
               {values.quality}
             </div>
           ) : values.type === "negative" ? (
             <div
               key={i}
-              className="block shadow-md rounded-full px-3 py-2 border border-red-500">
+              className="flex items-center justify-center block shadow-md rounded-full px-3 py-2 border border-red-500">
               {values.quality}
             </div>
           ) : (
             <div
               key={i}
-              className="block shadow-md rounded-full px-3 py-2 border border-gray-500">
+              className="flex items-center justify-center block shadow-md rounded-full px-3 py-2 border border-gray-500">
               {values.quality}
             </div>
           )
         })}
       </div>
+
       <a href="/dashboard" className="pt-5">
         <p className="text-blue-500 underline text-center">
           Click here to know more about the product{" "}

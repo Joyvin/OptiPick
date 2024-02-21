@@ -4,9 +4,13 @@ import React from "react"
 
 interface DonutChartTrProps {
   data: number
+  categoryValues: number[]
 }
 
-export const DonutChartTr: React.FC<DonutChartTrProps> = ({ data }) => {
+export const DonutChartTr: React.FC<DonutChartTrProps> = ({
+  data,
+  categoryValues
+}) => {
   return (
     <div className="w-[90%] mx-auto">
       <div className="flex justify-center flex-row gap-3 my-4 border-b pb-2">
@@ -33,7 +37,7 @@ export const DonutChartTr: React.FC<DonutChartTrProps> = ({ data }) => {
           <span>{data}%</span>
         </p>
         <CategoryBar
-          values={[10, 20, 40, 30]}
+          values={categoryValues}
           colors={["rose", "orange", "yellow", "emerald"]}
           markerValue={data}
           className="mt-3"
