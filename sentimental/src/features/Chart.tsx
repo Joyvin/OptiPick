@@ -100,7 +100,7 @@ const Chart = ({
         {aspects.map((aspect, i) => (
           <div
             key={i}
-            className="flex items-center justify-center shadow-md rounded-full px-3 py-2 border border-green-500">
+            className="flex items-center justify-center shadow-md rounded-full px-7 py-0.5 border border-green-500">
             {aspect.target}: {aspect.value}
           </div>
         ))}
@@ -108,19 +108,19 @@ const Chart = ({
           return values.type === "positive" ? (
             <div
               key={i}
-              className="flex items-center justify-center  shadow-md rounded-full px-3 py-2 border border-green-500">
+              className="flex items-center justify-center  shadow-md rounded-full px-7 py-0.5 border border-green-500">
               {values.quality}
             </div>
           ) : values.type === "negative" ? (
             <div
               key={i}
-              className="flex items-center justify-center  shadow-md rounded-full px-3 py-2 border border-red-500">
+              className="flex items-center justify-center  shadow-md rounded-full px-7 py-0.5 border border-red-500">
               {values.quality}
             </div>
           ) : (
             <div
               key={i}
-              className="flex items-center justify-center  shadow-md rounded-full px-3 py-2 border border-gray-500">
+              className="flex items-center justify-center  shadow-md rounded-full px-7 py-0.5 border border-gray-500">
               {values.quality}
             </div>
           )
