@@ -5,11 +5,13 @@ import React from "react"
 interface DonutChartTrProps {
   data: number
   categoryValues: number[]
+  rating: number
 }
 
 export const DonutChartTr: React.FC<DonutChartTrProps> = ({
   data,
-  categoryValues
+  categoryValues,
+  rating
 }) => {
   return (
     <div className="w-[90%] mx-auto">
@@ -33,11 +35,11 @@ export const DonutChartTr: React.FC<DonutChartTrProps> = ({
       <Card className="mx-auto max-w-sm my-3">
         <p className="text-tremor-default text-tremor-content dark:text-dark-tremor-content flex items-center justify-between">
           <span>Product Rating</span>
-          <span>{data}%</span>
+          <span>{rating}</span>
         </p>
         <CategoryBar
           values={categoryValues}
-          colors={["rose", "orange", "yellow", "emerald"]}
+          colors={["rose", "orange", "emerald"]}
           markerValue={data}
           className="mt-3"
         />

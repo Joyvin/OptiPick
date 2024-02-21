@@ -90,17 +90,8 @@ export const CountButton = () => {
   }
 
   const calculateFinalValue = (responseData) => {
-    const { p, n, nt } = responseData.overall
-
-    const totalSentiments = p + n + nt
-
-    const successPercentage = (p / totalSentiments) * 100
-
-    const weightedSuccessPercentage =
-      (successPercentage + responseData.nps * 10) / 2
-
-    // Convert the string back to a number
-    return parseFloat(weightedSuccessPercentage.toFixed(2))
+    const { p } = responseData.overall
+    return parseFloat((p * 100).toFixed(2))
   }
 
   return (
@@ -136,9 +127,13 @@ export const CountButton = () => {
 
         {response && (
           <DonutChartTr
+<<<<<<< Updated upstream
 <<<<<<< HEAD
             data={parseInt(response.overall.p)}
 =======
+=======
+            rating={response.nps * 10}
+>>>>>>> Stashed changes
             data={calculateFinalValue(response)}
 >>>>>>> c0ce56261994e34df3197ec0d10a4d38c55e27e8
             categoryValues={calculateCategoryValues(response)}
