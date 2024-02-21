@@ -130,7 +130,7 @@ def getDetails():
     url = request.form.get('url')
 
     if not url:
-        return {"title": "", "img": ""}
+        return json.dumps({"title": "", "img": ""})
     
     response = requests.get(url, headers={
        "User-Agent": "*"
@@ -141,7 +141,7 @@ def getDetails():
     ele = soup.find('span', {'id': 'productTitle'}).text.strip()
     img = soup.find('img', {'id': 'landingImage'}).get('src')
 
-    return {"title": ele, "img": img}
+    return json.dumps({"title": ele, "img": img})
 
 if __name__ == '__main__':
     app.run()
