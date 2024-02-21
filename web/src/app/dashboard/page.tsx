@@ -1,11 +1,36 @@
 "use client";
 import React, { useState } from "react";
-import { AreaChart, BarChart } from "@tremor/react";
-import { RiRefreshLine } from "@remixicon/react";
+import { AreaChart, Badge, BadgeDelta, BarChart, Card, CategoryBar, Icon, ProgressCircle } from "@tremor/react";
+import { RiCashFill, RiRecordCircleFill, RiRefreshLine } from "@remixicon/react";
 import { Button } from "@tremor/react";
 import { DonutChart } from "@tremor/react";
 import { Search } from "lucide-react";
 import Image from "next/image";
+import axios from "axios";
+import dummyData from "@/data/dummyData";
+import { green } from "tailwindcss/colors";
+
+async function getData(inputValue: string) {
+  var formdata = new FormData();
+	formdata.append(
+		"url",
+		inputValue.replace('/dp/', '/product-reviews/')
+	);
+
+	let res = await axios
+		.post("http://localhost:3000/api/scrape", formdata)
+		.then((e) => {
+			console.log(e.data);
+			return e.data;
+		});
+}
+
+const reviewLength = Object.keys(dummyData["datas"][0]).length
+
+// Object.values(dummyData.datas[0]).forEach((value) => {
+//   console.log(value.sentence);
+// })
+
 
 const datahero = [
   {
@@ -37,94 +62,94 @@ const datahero = [
 const chartdata1 = [
   {
     date: "Jan 22",
-    SemiAnalysis: 2890,
-    "The Pragmatic Engineer": 2338,
+    Positive: 2890,
+    "Negative": 2338,
   },
   {
     date: "Feb 22",
-    SemiAnalysis: 2756,
-    "The Pragmatic Engineer": 2103,
+    Positive: 2756,
+    "Negative": 2103,
   },
   {
     date: "Mar 22",
-    SemiAnalysis: 3322,
-    "The Pragmatic Engineer": 2194,
+    Positive: 3322,
+    "Negative": 2194,
   },
   {
     date: "Apr 22",
-    SemiAnalysis: 3470,
-    "The Pragmatic Engineer": 2108,
+    Positive: 3470,
+    "Negative": 2108,
   },
   {
     date: "May 22",
-    SemiAnalysis: 3475,
-    "The Pragmatic Engineer": 1812,
+    Positive: 3475,
+    "Negative": 1812,
   },
   {
     date: "Jun 22",
-    SemiAnalysis: 3129,
-    "The Pragmatic Engineer": 1726,
+    Positive: 3129,
+    "Negative": 1726,
   },
   {
     date: "Jul 22",
-    SemiAnalysis: 3490,
-    "The Pragmatic Engineer": 1982,
+    Positive: 3490,
+    "Negative": 1982,
   },
   {
     date: "Aug 22",
-    SemiAnalysis: 2903,
-    "The Pragmatic Engineer": 2012,
+    Positive: 2903,
+    "Negative": 2012,
   },
   {
     date: "Sep 22",
-    SemiAnalysis: 2643,
-    "The Pragmatic Engineer": 2342,
+    Positive: 2643,
+    "Negative": 2342,
   },
   {
     date: "Oct 22",
-    SemiAnalysis: 2837,
-    "The Pragmatic Engineer": 2473,
+    Positive: 2837,
+    "Negative": 2473,
   },
   {
     date: "Nov 22",
-    SemiAnalysis: 2954,
-    "The Pragmatic Engineer": 3848,
+    Positive: 2954,
+    "Negative": 3848,
   },
   {
     date: "Dec 22",
-    SemiAnalysis: 3239,
-    "The Pragmatic Engineer": 3736,
+    Positive: 3239,
+    "Negative": 3736,
   },
 ];
 
 const chartdata2 = [
   {
-    name: "Amphibians",
-    "Number of threatened species": 2488,
+    name: "Colgate",
+    "Number of similar products": 2488,
   },
   {
-    name: "Birds",
-    "Number of threatened species": 1445,
+    name: "Mouthwash",
+    "Number of similar products": 1445,
   },
   {
-    name: "Crustaceans",
-    "Number of threatened species": 743,
+    name: "Toothpaste",
+    "Number of similar products": 743,
   },
   {
-    name: "Ferns",
-    "Number of threatened species": 281,
+    name: "Toothbrush",
+    "Number of similar products": 281,
   },
   {
-    name: "Arachnids",
-    "Number of threatened species": 251,
+    name: "Dental Floss",
+    "Number of similar products": 251,
   },
   {
-    name: "Corals",
-    "Number of threatened species": 232,
+    name: "Mouth Spray",
+    "Number of similar products": 232,
   },
   {
-    name: "Algae",
-    "Number of threatened species": 98,
+    name: "Mouth Gel",
+    "Number of similar products": 98,
   },
 ];
 
@@ -141,6 +166,7 @@ const page = (props: Props) => {
     e.preventDefault();
     e.target.reset();
     setShowData(true);
+    getData(inputValue);
   };
   return (
     <div className="">
@@ -148,7 +174,7 @@ const page = (props: Props) => {
         <div
           className={`grid md:grid-cols-3 grid-cols-1 relative z-[20] mt-20`}
         >
-          <div className="col-span-2 ">
+          <div className="col-span-2">
             <form onSubmit={handleSubmit} className="mx-5">
               <label
                 htmlFor="default-search"
@@ -176,13 +202,86 @@ const page = (props: Props) => {
                 </button>
               </div>
             </form>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-6 justify-center mt-8">
+              <Card className="mx-auto max-w-sm" decoration="top" decorationColor="blue">
+                <div className="flex items-start space-x-6">
+                  <Icon
+                    icon={RiCashFill}
+                    color="blue"
+                    variant="solid"
+                    tooltip="Sum of Sales"
+                    size="lg"
+                  />
+                  <div>
+                    <p className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">Reviews</p>
+                    <p className="text-xl text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">{reviewLength}</p>
+                  </div>
+                  <Badge icon={RiRecordCircleFill}>live</Badge>
+                </div>
+              </Card>
+              <Card className="mx-auto max-w-sm" decoration="top" decorationColor="yellow">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">Sales</h4>
+                  <BadgeDelta
+                    deltaType="moderateIncrease"
+                    isIncreasePositive={true}
+                    size="xs"
+                  >
+                    +9.3%
+                  </BadgeDelta>
+                </div>
+                <p className="text-tremor-metric text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">$23,456</p>
+              </Card>
+              <div className="col-span-1 flex flex-col gap-2">
+                <div className="space-y-3">
+                  <p className="text-center font-mono text-sm text-slate-500">
+                    Total Positive Reviews - {dummyData.overall.p * 100}%
+                  </p>
+                  <div className="flex justify-center">
+                    <Card className="max-w-sm" decoration="left" decorationColor="green">
+                      <CategoryBar
+                        values={[40, 30, 20, 10]}
+                        colors={['emerald', 'yellow', 'orange', 'rose']}
+                        markerValue={dummyData.overall.p * 100}
+                      />
+                    </Card>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <p className="text-center font-mono text-sm text-slate-500">
+                    Total Negative Reviews - {dummyData.overall.n * 100}%
+                  </p>
+                  <div className="flex justify-center">
+                    <Card className="max-w-sm" decoration="left" decorationColor="red">
+                      <CategoryBar
+                        values={[40, 30, 20, 10]}
+                        colors={['emerald', 'yellow', 'orange', 'rose']}
+                        markerValue={dummyData.overall.n * 100}
+                      />
+                    </Card>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <p className="text-center font-mono text-sm text-slate-500">
+                    Total Neutral Reviews - {dummyData.overall.nt * 100}%
+                  </p>
+                  <div className="flex justify-center">
+                    <Card className="max-w-sm" decoration="left" decorationColor="indigo">
+                      <CategoryBar
+                        values={[40, 30, 20, 10]}
+                        colors={['emerald', 'yellow', 'orange', 'rose']}
+                        markerValue={dummyData.overall.nt * 100}
+                      />
+                    </Card>
+                  </div>
+                </div>
+              </div>
               <div className="shadow-md rounded-md bg-transparent m-4">
                 <AreaChart
                   className=""
                   data={chartdata1}
                   index="date"
-                  categories={["SemiAnalysis", "The Pragmatic Engineer"]}
+                  categories={["Positive", "Negative"]}
                   colors={["indigo", "rose"]}
                   valueFormatter={dataFormatter}
                   yAxisWidth={60}
@@ -193,7 +292,7 @@ const page = (props: Props) => {
                 <BarChart
                   data={chartdata2}
                   index="name"
-                  categories={["Number of threatened species"]}
+                  categories={["Number of similar products"]}
                   colors={["blue"]}
                   valueFormatter={dataFormatter}
                   yAxisWidth={48}
@@ -211,25 +310,50 @@ const page = (props: Props) => {
                   onValueChange={(v) => console.log(v)}
                 />
               </div>
-              <div>
-                <span className="text-center block font-mono text-tremor-default text-tremor-content dark:text-dark-tremor-content">
-                  donut variant 2
-                </span>
-                <DonutChart
-                  data={datahero}
-                  variant="pie"
-                  valueFormatter={dataFormatter}
-                  onValueChange={(v) => console.log(v)}
-                />
-              </div>
+              {
+                Object.values(dummyData.datas[0]).map((value) => {
+                  return (
+                    <Card className="shadow-md rounded-lg mx-auto max-w-md" decoration="left" decorationColor="blue">
+                      <div className="flex flex-col items-center justify-center gap-4">
+                        <p className="text-gray-300 font-semibold text-center">{value.sentence}</p>
+                        <div className="flex gap-6 justify-center items-center">
+                          <div className="flex flex-col gap-4">
+                            <span className="text-center block font-mono text-tremor-default text-tremor-content dark:text-dark-tremor-content">
+                              Positive
+                            </span>
+                            <ProgressCircle value={value.isPositive * 100} size="md" color="green">
+                              <span className="text-xs font-medium text-white">{Math.round(value.isPositive * 100)}%</span>
+                            </ProgressCircle>
+                          </div>
+                          <div className="flex flex-col gap-4">
+                            <span className="text-center block font-mono text-tremor-default text-tremor-content dark:text-dark-tremor-content">
+                              Negative
+                            </span>
+                            <ProgressCircle value={value.isNegative * 100} size="md" color="red">
+                              <span className="text-xs font-medium text-white">{Math.round(value.isNegative * 100)}%</span>
+                            </ProgressCircle>
+                          </div>
+                          <div className="flex flex-col gap-4">
+                            <span className="text-center block font-mono text-tremor-default text-tremor-content dark:text-dark-tremor-content">
+                              Neutral
+                            </span>
+                            <ProgressCircle value={value.isNegative * 100} size="md" color="indigo">
+                              <span className="text-xs font-medium text-white">{Math.round(value.isNegative * 100)}%</span>
+                            </ProgressCircle>
+                          </div>
+                        </div>
+                      </div>
+                    </Card>
+                  )
+                })
+              }
             </div>
           </div>
 
-          <div className="text-white">
-            <Image
-              src="/web/public/checker.png"
-              height={100}
-              width={100}
+          <div className="text-white fixed right-10 xl:w-[420px] lg:w-[300px] md:w-[200px] w-[50px] flex flex-col gap-4">
+            <img
+              src="/checker.png"
+              className="object-cover w-full h-full rounded-lg"
               alt=""
             />
             <h1>Product Name </h1>
