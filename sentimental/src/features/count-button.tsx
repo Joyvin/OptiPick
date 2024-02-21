@@ -132,7 +132,7 @@ export const CountButton = () => {
             categoryValues={calculateCategoryValues(response)}
           />
         )}
-        {response && <Chart data={response} aspects={response.aspects} />}
+        {response && <Chart url={url} data={response} aspects={response.aspects} />}
       </div>
     </>
   )
