@@ -123,7 +123,7 @@ export const CountButton = () => {
         
         {response && (
           <DonutChartTr
-            data={response.nps * 10}
+            data={parseInt(response.overall.p)}
             categoryValues={calculateCategoryValues(response)}
           />
         )}

@@ -17,7 +17,6 @@ export const DonutChartTr: React.FC<DonutChartTrProps> = ({
         <Sparkles />
         <h1 className="font-bold text-xl">Welcome to OptiPick</h1>
       </div> */}
-      <h1 className="font-semibold text-lg">Product Name</h1>
       <div className=" grid grid-cols-1 gap-12 ">
         <div className="flex justify-center my-3">
           <ProgressCircle

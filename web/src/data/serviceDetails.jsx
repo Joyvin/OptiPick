@@ -1,21 +1,22 @@
 import { MdAnalytics, MdSafetyCheck, MdBook } from "react-icons/md";
+import { Compass, SearchCheck, Bot } from 'lucide-react'
 
 const ourServices = [
   {
-    icon: <MdSafetyCheck />,
-    heading: "Security",
+    icon: <SearchCheck />,
+    heading: "Product Review",
     detail:
-      "Maintain your data with high security, and privacy, Because we are using Blockchain Technology",
+      "Gives you the best info on the top products of your search",
   },
   {
-    icon: <MdAnalytics />,
-    heading: "Comparison Tool",
-    detail: "Compare Prices and Ratings of different houses and places",
+    icon: <Compass />,
+    heading: "Product Comparison Tool",
+    detail: "Guides you by comparing Prices and Ratings of different Products",
   },
   {
-    icon: <MdBook />,
-    heading: "Community Forum",
-    detail: "Join our community forum to discuss your problems and solutions",
+    icon: <Bot />,
+    heading: "AI Chatbot",
+    detail: "Gives you personalized details on the products you should use for any scenario",
   },
 ];
 

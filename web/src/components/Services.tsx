@@ -25,7 +25,7 @@ import {
           <div className="w-[20rem] h-[20rem] xs:w-[25rem] xs:h-[25rem] sm:w-[30rem] sm:h-[28rem] overflow-hidden rounded-t-[15rem]">
             <img
               className="w-full h-full object-cover"
-              src="https://images.unsplash.com/photo-1657593895101-0d66dbf1b141?q=80&w=2074&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src="https://images.unsplash.com/photo-1510519138101-570d1dca3d66?q=80&w=2894&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3Ds"
               alt=""
             />
           </div>
@@ -46,7 +46,7 @@ import {
               {serviceDetails.map((item, i) => {
                 return (
                   <AccordionItem
-                    className="bg-white border-[0.8px] border-solid border-[rgba(128, 128, 128, 0.143)] rounded-[8px] overflow-hidden mb-[20px]"
+                    className="bg-white bg-blur-xl border-[0.8px] border-solid border-[rgba(128, 128, 128, 0.143)] rounded-[8px] overflow-hidden mb-[20px]"
                     key={i}
                     uuid={i}
                   >
