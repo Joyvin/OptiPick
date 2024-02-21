@@ -14,9 +14,9 @@ export default function Home() {
         <Skills />
         <Encryption />
         <Projects />
-        {/* <Team /> */}
-        <Carousel />
+        {/* <Carousel /> */}
         <Services />
+        <Team />
       </div>
     </main>
   );

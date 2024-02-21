@@ -18,6 +18,10 @@ def authenticate_client():
     return text_analytics_client
 
 async def sentiment_analysis(client, documents):
+    
+    if not documents:
+        return None
+    
     result = client.analyze_sentiment(documents, show_opinion_mining=True)
     doc_result = [doc for doc in result if not doc.is_error]
 
@@ -37,7 +41,7 @@ async def sentiment_analysis(client, documents):
     # positive_mined_opinions = []
     # mixed_mined_opinions = []
     # negative_mined_opinions = []
-
+    
     for document in doc_result:
         for sentence in document.sentences:
             tDoc = {}
@@ -116,25 +120,37 @@ async def scrape():
         review2 = review2[:new_length]
         # review = review1  review2
 
-        myData2, ts2, c2 = await sentiment_analysis(client, review2)
+        if len(review2) != 0:
+            myData2, ts2, c2 = await sentiment_analysis(client, review2)
 
-        print(ts1, c1, ts2, c2)
+            myData = {
+                "overall":{
+                    "p": (ts1["p"] + ts2["p"]) / (c1+c2),
+                    "n": (ts1["n"] + ts2["n"]) / (c1+c2),
+                    "nt": (ts1["nt"] + ts2["nt"]) / (c1+c2)
+                },
+                "datas": [
+                    myData1["opinion"], myData2["opinion"]
+                ],
+                "aspects": myData1["aspects"] + myData2["aspects"],
+                "nps": random.randint(6, 10)
+            }
+        else:
+            myData = {
+                "overall":{
+                    "p": (ts1["p"]) / (c1),
+                    "n": (ts1["n"]) / (c1),
+                    "nt": (ts1["nt"]) / (c1)
+                },
+                "datas": [
+                    myData1["opinion"]
+                ],
+                "aspects": myData1["aspects"],
+                "nps": random.randint(6, 10)
+            }
 
-        myData = {
-            "overall":{
-                "p": (ts1["p"] + ts2["p"]) / (c1+c2),
-                "n": (ts1["n"] + ts2["n"]) / (c1+c2),
-                "nt": (ts1["nt"] + ts2["nt"]) / (c1+c2)
-            },
-            "datas": [
-                myData1["opinion"], myData2["opinion"]
-            ],
-            "aspects": myData1["aspects"] + myData2["aspects"],
-            "nps": random.randint(6, 10)
-        }
 
-
-        
+            
         myData = json.dumps(myData)
 
         return myData
