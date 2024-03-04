@@ -1,4 +1,4 @@
-import { Annoyed, ThumbsDown, ThumbsUp } from "lucide-react"
+import { Annoyed, ChevronRightCircle, Search, SearchCheckIcon, ThumbsDown, ThumbsUp } from "lucide-react"
 import React, { useEffect, useState } from "react"
 
 interface Opinion {
@@ -42,10 +42,12 @@ interface ResponseData {
 
 const Chart = ({
   data,
-  aspects
+  aspects,
+  url
 }: {
   data: ResponseData
   aspects: Aspect[]
+  url: String
 }) => {
   const [chartData, setChartData] = useState([
     {
@@ -96,7 +98,7 @@ const Chart = ({
           </div>
         ))}
       </div>
-      <div className="w-full flex flex-row gap-3 my-2 overflow-x-auto">
+      <div className="w-full flex flex-row items-center gap-3 mt-2 overflow-x-auto">
         {aspects.map((aspect, i) => (
           <div
             key={i}
@@ -126,12 +128,11 @@ const Chart = ({
           )
         })}
       </div>
-
-      <a href="/dashboard" className="pt-5">
-        <p className="text-blue-500 underline text-center">
-          Click here to know more about the product{" "}
-        </p>
+      <a href={`http://localhost:3000/dashboard?q=${url}`} target="_blank" className="">
+        View More Details
+        {/* <SearchCheckIcon size={10}/> */}
       </a>
+
     </div>
   )
 }
