@@ -46,63 +46,63 @@ const datahero = [
 const chartdata1 = [
   {
     date: "Jan 22",
-    Positive: 2890,
-    "Negative": 2338,
+    Positive: 0,
+    "Negative": 0,
   },
   {
     date: "Feb 22",
-    Positive: 2756,
-    "Negative": 2103,
+    Positive: 2,
+    "Negative": 1,
   },
   {
     date: "Mar 22",
-    Positive: 3322,
-    "Negative": 2194,
+    Positive: 0,
+    "Negative": 0,
   },
   {
     date: "Apr 22",
-    Positive: 3470,
-    "Negative": 2108,
+    Positive: 4,
+    "Negative": 2,
   },
   {
     date: "May 22",
-    Positive: 3475,
-    "Negative": 1812,
+    Positive: 0,
+    "Negative": 0,
   },
   {
     date: "Jun 22",
-    Positive: 3129,
-    "Negative": 1726,
+    Positive: 0,
+    "Negative": 0,
   },
   {
     date: "Jul 22",
-    Positive: 3490,
-    "Negative": 1982,
+    Positive: 0,
+    "Negative": 0,
   },
   {
     date: "Aug 22",
-    Positive: 2903,
-    "Negative": 2012,
+    Positive: 4,
+    "Negative": 4,
   },
   {
     date: "Sep 22",
-    Positive: 2643,
-    "Negative": 2342,
+    Positive: 0,
+    "Negative": 0,
   },
   {
     date: "Oct 22",
-    Positive: 2837,
-    "Negative": 2473,
+    Positive: 0,
+    "Negative": 0,
   },
   {
     date: "Nov 22",
-    Positive: 2954,
-    "Negative": 3848,
+    Positive: 5,
+    "Negative": 1,
   },
   {
     date: "Dec 22",
-    Positive: 3239,
-    "Negative": 3736,
+    Positive: 3,
+    "Negative": 0,
   },
 ];
 
@@ -138,7 +138,7 @@ const chartdata2 = [
 ];
 
 const dataFormatter = (number: number) =>
-  `$${Intl.NumberFormat("us").format(number).toString()}`;
+  `${Intl.NumberFormat("us").format(number).toString()}`;
 
 type Props = {};
 
@@ -266,7 +266,7 @@ const page = (props: Props) => {
                   <h4 className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">NPS</h4>
                   <Badge icon={RiRecordCircleFill}>live</Badge>
                 </div>
-                <p className="text-tremor-metric text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">{myData.nps}</p>
+                <p className="text-tremor-metric text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">8</p>
               </Card>
               <div className="col-span-1 flex flex-col gap-2">
                 <div className="space-y-3">
