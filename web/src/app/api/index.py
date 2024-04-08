@@ -11,7 +11,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 
-cred = credentials.Certificate('/Users/alvindsouza/Documents/Projects/OptiPick/web/src/app/api/cred.json')
+cred = credentials.Certificate('./src/app/api/cred.json')
 
 firebase_admin.initialize_app(cred)
 
@@ -25,6 +25,7 @@ def getUserHistory():
     print(userId)
     collection_ref = db.collection('users').document(userId).collection('history')
     docs = collection_ref.get()
+    print(docs)
     res = [doc.to_dict() for doc in docs]
     return {"res": res}
 
