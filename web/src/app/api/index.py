@@ -7,6 +7,27 @@ import random
 
 from flask import Flask, request, jsonify
 
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+
+cred = credentials.Certificate('/Users/alvindsouza/Documents/Projects/OptiPick/web/src/app/api/cred.json')
+
+firebase_admin.initialize_app(cred)
+
+db = firestore.client()
+collection_ref = db.collection('users')
+app = Flask(__name__)
+
+@app.route('/api/history', methods=["POST"])
+def getUserHistory():
+    userId = request.get_json()["userId"]
+    print(userId)
+    collection_ref = db.collection('users').document(userId).collection('history')
+    docs = collection_ref.get()
+    res = [doc.to_dict() for doc in docs]
+    return {"res": res}
+
 language_key = '9dbfb5dbd09940fa87b596dfac51ca40'
 language_endpoint = 'https://faqtest.cognitiveservices.azure.com/'
 
@@ -82,8 +103,6 @@ async def sentiment_analysis(client, documents):
         "aspects": aspects,
     }
     return myData, ts, count
-
-app = Flask(__name__)
 
 @app.route('/api/helloj')
 def hello():
