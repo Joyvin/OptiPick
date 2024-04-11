@@ -23,7 +23,6 @@ import axios from "axios";
 // import myData from "@/data/myData";
 import { green } from "tailwindcss/colors";
 import Loader from "@/components/main/Loader";
-
 // Object.values(myData.datas[0]).forEach((value) => {
 //   console.log(value.sentence);
 // })
@@ -179,23 +178,24 @@ const page = (props: Props) => {
 
   async function getData(inputValue: string) {
     setIsLoading(true);
-    var tp = inputValue
+    var tp = inputValue;
     var formdata = new FormData();
-    formdata.append(
-      "url",
-      inputValue.replace('/dp/', '/product-reviews/')
-    );
+    formdata.append("url", inputValue.replace("/dp/", "/product-reviews/"));
+    var userId = sessionStorage.getItem("userId");
+    console.log(userId);
 
-  // async function getData(inputValue: string) {
-  //   setIsLoading(true);
-  //   const userId = sessionStorage.getItem("userId");
-  //   var tp = inputValue;
-  //   if (!userId) {
-  //     console.error("User ID not found in sessionStorage");
-  //     return;
-  //   }
-  //   var formdata = new FormData();
-  //   formdata.append("url", inputValue.replace("/dp/", "/product-reviews/"));
+    // Append userId to formdata
+    formdata.append("userID", userId);
+    // async function getData(inputValue: string) {
+    //   setIsLoading(true);
+    //   const userId = sessionStorage.getItem("userId");
+    //   var tp = inputValue;
+    //   if (!userId) {
+    //     console.error("User ID not found in sessionStorage");
+    //     return;
+    //   }
+    //   var formdata = new FormData();
+    //   formdata.append("url", inputValue.replace("/dp/", "/product-reviews/"));
 
     let res = await axios
       .post("http://localhost:3000/api/scrape", formdata)
@@ -213,7 +213,7 @@ const page = (props: Props) => {
   async function scrapeDetails(inputValue: string) {
     var formdata = new FormData();
     formdata.append("url", inputValue);
-    console.log(formdata)
+    console.log(formdata);
 
     let res = await axios
       .post("http://localhost:3000/api/details", formdata)
