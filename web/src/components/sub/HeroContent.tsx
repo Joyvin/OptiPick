@@ -10,7 +10,12 @@ import {
 import { SparklesIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 
-import { getRedirectResult, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import {
+  getRedirectResult,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
 import { auth } from "../../../lib/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -21,9 +26,9 @@ const HeroContent = () => {
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
       if (user) {
-        sessionStorage.setItem("userId",user.uid)
+        sessionStorage.setItem("userId", user.uid);
         setUserAuth(user);
-        console.log(user)
+        console.log(user);
         // sessionStorage.setItem("userEmail",user.email)
       } else {
         setUserAuth(null);
@@ -36,35 +41,36 @@ const HeroContent = () => {
 
   const signUp = () => {
     signInWithPopup(auth, provider)
-  .then((result) => {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    if (credential) {
-      const token = credential.accessToken;
-      // Continue processing user data
-    }
-    // The signed-in user info.
-    const user = result.user;
-    // IdP data available using getAdditionalUserInfo(result)
-    // ...
-  }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.customData.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
-  });
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        if (credential) {
+          const token = credential.accessToken;
+          // Continue processing user data
+        }
+        // The signed-in user info.
+        const user = result.user;
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
   };
 
   const userSignout = () => {
-    sessionStorage.clear()
+    sessionStorage.clear();
     signOut(auth)
       .then(() => {
         console.log("Signout Success");
-        sessionStorage.clear()
+        sessionStorage.clear();
       })
       .catch((e) => console.log(e));
   };
@@ -116,21 +122,23 @@ const HeroContent = () => {
             Sign Up with Google
           </motion.button>
         ) : (
-          <motion.button
-            variants={slideInFromLeft(1)}
-            onClick={userSignout}
-            className="py-3  button-primary text-center text-white cursor-pointer rounded-lg max-w-[200px]"
-          >
-            Sign out
-          </motion.button>
+          <div className="w-full flex flex-row gap-4">
+            <motion.button
+              variants={slideInFromLeft(1)}
+              onClick={userSignout}
+              className="py-3 px-7 button-primary text-center text-white cursor-pointer rounded-lg max-w-[200px]"
+            >
+              Sign out
+            </motion.button>
+            <motion.a
+              variants={slideInFromLeft(1)}
+              href="/history"
+              className="py-3 px-7 button-primary text-center text-white cursor-pointer rounded-lg max-w-[200px]"
+            >
+              History
+            </motion.a>
+          </div>
         )}
-        <motion.a
-            variants={slideInFromLeft(1)}
-            href="/history"
-            className="py-3  button-primary text-center text-white cursor-pointer rounded-lg max-w-[200px]"
-          >
-            History
-          </motion.a>
       </div>
 
       <motion.div

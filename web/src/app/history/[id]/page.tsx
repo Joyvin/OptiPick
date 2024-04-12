@@ -1,10 +1,10 @@
 import React from 'react'
-import History from '../../components/History'
+import HistoryItem from '../../../components/HistoryItem'
 
 const page = () => {
   return (
     <div className='md:w-[80%] w-[95%] mx-auto mt-20 text-white'>
-        <History />
+        <HistoryItem />
     </div>
   )
 }
