@@ -18,360 +18,360 @@ import { green } from "tailwindcss/colors";
 import Loader from "./main/Loader";
 import Image from "next/image";
 
-const resArr = [
-  {
-    title:
-      "Colgate MaxFresh Toothpaste, Red Gel Paste with Menthol for Super Fresh Breath, 600g, 150g X 4 (Spicy Fresh) (Combo Pack)",
-    link: "https://www.amazon.in/Colgate-Max-Fresh-Spicy-Toothpaste/dp/B01NAZBI08/ref=sr_1_4_sspa?crid=V4SV0X83S4S&dib=eyJ2IjoiMSJ9.UlK0dGUmfNyb7ShewyJ0nSr83TckOJAvrsMapGLIfKediUll1AHLGAI7EDifkkqOmNI16x2KuQhyaa52UULqFZ7CJbNthaEllvL6-lPbqyS-a_JTxdAj3SoKptXgsLrI8JvmRLBviN8Y4G8rok0pfHS1JLPu_eZF1w1zGGYRV1OyTsrMYtXLk2a2ItrTEWgTOXfvXvxr85qTr6AJJ4AI8th6Z7sh6koiUkertGsowJ2tY3ZHKvhZh8Dc_9OtrJGl8XG6_oHJ29qjhCW2hM4FxRJ86riJNc1ZDCteIMf3BPs.La6rrQ9wtLemKAlDCQoRl3_asQ779DbjHoDjxCdZP-A&dib_tag=se&keywords=toothpaste&qid=1712862425&sprefix=toot%2Caps%2C229&sr=8-4-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&psc=1",
-    data: [
-      {
-        overall: {
-          p: 0.8065384615384616,
-          n: 0.01230769230769231,
-          nt: 0.17961538461538465,
-        },
-        datas: [
-          {
-            "0": {
-              sentence:
-                "Very refreshing like a mouth freshener toothpaste seriously guys and also cleans your deepenly and whitening the teeth also go for it",
-              isPositive: 0.95,
-              isNegative: 0.01,
-              isNeutral: 0.05,
-              opinion: [],
-            },
-            "1": {
-              sentence:
-                "The item purchased by this time has paid it's price with authentic cleaning capabilities and charming feeling even after a long time. ",
-              isPositive: 0.91,
-              isNegative: 0.01,
-              isNeutral: 0.08,
-              opinion: [
-                {
-                  target: "cleaning capabilities",
-                  assessment: [
-                    { value: "authentic", sentiment: "positive", score: 1.0 },
-                  ],
-                },
-              ],
-            },
-            "2": {
-              sentence: "Better to try it. ",
-              isPositive: 0.54,
-              isNegative: 0.03,
-              isNeutral: 0.42,
-              opinion: [],
-            },
-            "3": {
-              sentence: "My suggestion to all valued customers.",
-              isPositive: 0.45,
-              isNegative: 0.01,
-              isNeutral: 0.54,
-              opinion: [],
-            },
-            "4": {
-              sentence:
-                "Great experience with the brand and value for money too.",
-              isPositive: 1.0,
-              isNegative: 0.0,
-              isNeutral: 0.0,
-              opinion: [
-                {
-                  target: "experience",
-                  assessment: [
-                    { value: "Great", sentiment: "positive", score: 1.0 },
-                  ],
-                },
-              ],
-            },
-            "5": {
-              sentence: "Good. ",
-              isPositive: 0.9,
-              isNegative: 0.01,
-              isNeutral: 0.08,
-              opinion: [],
-            },
-            "6": {
-              sentence: "Colgate is best for teeth,",
-              isPositive: 0.89,
-              isNegative: 0.02,
-              isNeutral: 0.09,
-              opinion: [
-                {
-                  target: "Colgate",
-                  assessment: [
-                    { value: "best", sentiment: "positive", score: 1.0 },
-                  ],
-                },
-              ],
-            },
-            "7": {
-              sentence: "Good product",
-              isPositive: 0.99,
-              isNegative: 0.0,
-              isNeutral: 0.0,
-              opinion: [
-                {
-                  target: "product",
-                  assessment: [
-                    { value: "Good", sentiment: "positive", score: 1.0 },
-                  ],
-                },
-              ],
-            },
-            "8": {
-              sentence: "good",
-              isPositive: 0.99,
-              isNegative: 0.0,
-              isNeutral: 0.01,
-              opinion: [],
-            },
-            "9": {
-              sentence: "Just okay",
-              isPositive: 0.85,
-              isNegative: 0.02,
-              isNeutral: 0.13,
-              opinion: [],
-            },
-            "10": {
-              sentence: "Best quality",
-              isPositive: 0.99,
-              isNegative: 0.0,
-              isNeutral: 0.01,
-              opinion: [
-                {
-                  target: "quality",
-                  assessment: [
-                    { value: "Best", sentiment: "positive", score: 1.0 },
-                  ],
-                },
-              ],
-            },
-            "11": {
-              sentence: "Rich taste. ",
-              isPositive: 0.47,
-              isNegative: 0.02,
-              isNeutral: 0.51,
-              opinion: [
-                {
-                  target: "taste",
-                  assessment: [
-                    { value: "Rich", sentiment: "positive", score: 1.0 },
-                  ],
-                },
-              ],
-            },
-            "12": {
-              sentence: "Full of mint. ",
-              isPositive: 0.13,
-              isNegative: 0.03,
-              isNeutral: 0.84,
-              opinion: [],
-            },
-            "13": {
-              sentence: "Value for money.",
-              isPositive: 0.94,
-              isNegative: 0.01,
-              isNeutral: 0.05,
-              opinion: [],
-            },
-            "14": {
-              sentence: "ok",
-              isPositive: 0.51,
-              isNegative: 0.04,
-              isNeutral: 0.45,
-              opinion: [],
-            },
-          },
-          {
-            "0": {
-              sentence:
-                "Very refreshing like a mouth freshener toothpaste seriously guys and also cleans your deepenly and whitening the teeth also go for it",
-              isPositive: 0.95,
-              isNegative: 0.01,
-              isNeutral: 0.05,
-              opinion: [],
-            },
-            "1": {
-              sentence:
-                "The item purchased by this time has paid it's price with authentic cleaning capabilities and charming feeling even after a long time. ",
-              isPositive: 0.91,
-              isNegative: 0.01,
-              isNeutral: 0.08,
-              opinion: [
-                {
-                  target: "cleaning capabilities",
-                  assessment: [
-                    { value: "authentic", sentiment: "positive", score: 1.0 },
-                  ],
-                },
-              ],
-            },
-            "2": {
-              sentence: "Better to try it. ",
-              isPositive: 0.54,
-              isNegative: 0.03,
-              isNeutral: 0.42,
-              opinion: [],
-            },
-            "3": {
-              sentence: "My suggestion to all valued customers.",
-              isPositive: 0.45,
-              isNegative: 0.01,
-              isNeutral: 0.54,
-              opinion: [],
-            },
-            "4": {
-              sentence:
-                "Great experience with the brand and value for money too.",
-              isPositive: 1.0,
-              isNegative: 0.0,
-              isNeutral: 0.0,
-              opinion: [
-                {
-                  target: "experience",
-                  assessment: [
-                    { value: "Great", sentiment: "positive", score: 1.0 },
-                  ],
-                },
-              ],
-            },
-            "5": {
-              sentence: "Good. ",
-              isPositive: 0.9,
-              isNegative: 0.01,
-              isNeutral: 0.08,
-              opinion: [],
-            },
-            "6": {
-              sentence: "Colgate is best for teeth,",
-              isPositive: 0.89,
-              isNegative: 0.02,
-              isNeutral: 0.09,
-              opinion: [
-                {
-                  target: "Colgate",
-                  assessment: [
-                    { value: "best", sentiment: "positive", score: 1.0 },
-                  ],
-                },
-              ],
-            },
-            "7": {
-              sentence: "Good product",
-              isPositive: 0.99,
-              isNegative: 0.0,
-              isNeutral: 0.0,
-              opinion: [
-                {
-                  target: "product",
-                  assessment: [
-                    { value: "Good", sentiment: "positive", score: 1.0 },
-                  ],
-                },
-              ],
-            },
-            "8": {
-              sentence: "good",
-              isPositive: 0.99,
-              isNegative: 0.0,
-              isNeutral: 0.01,
-              opinion: [],
-            },
-            "9": {
-              sentence: "Just okay",
-              isPositive: 0.85,
-              isNegative: 0.02,
-              isNeutral: 0.13,
-              opinion: [],
-            },
-            "10": {
-              sentence: "Best quality",
-              isPositive: 0.99,
-              isNegative: 0.0,
-              isNeutral: 0.01,
-              opinion: [
-                {
-                  target: "quality",
-                  assessment: [
-                    { value: "Best", sentiment: "positive", score: 1.0 },
-                  ],
-                },
-              ],
-            },
-          },
-        ],
-        aspects: [
-          {
-            value: "authentic",
-            sentiment: "positive",
-            score: 1.0,
-            target: "cleaning capabilities",
-          },
-          {
-            value: "Great",
-            sentiment: "positive",
-            score: 1.0,
-            target: "experience",
-          },
-          {
-            value: "best",
-            sentiment: "positive",
-            score: 1.0,
-            target: "Colgate",
-          },
-          {
-            value: "Good",
-            sentiment: "positive",
-            score: 1.0,
-            target: "product",
-          },
-          {
-            value: "Best",
-            sentiment: "positive",
-            score: 1.0,
-            target: "quality",
-          },
-          { value: "Rich", sentiment: "positive", score: 1.0, target: "taste" },
-          {
-            value: "authentic",
-            sentiment: "positive",
-            score: 1.0,
-            target: "cleaning capabilities",
-          },
-          {
-            value: "Great",
-            sentiment: "positive",
-            score: 1.0,
-            target: "experience",
-          },
-          {
-            value: "best",
-            sentiment: "positive",
-            score: 1.0,
-            target: "Colgate",
-          },
-          {
-            value: "Good",
-            sentiment: "positive",
-            score: 1.0,
-            target: "product",
-          },
-          {
-            value: "Best",
-            sentiment: "positive",
-            score: 1.0,
-            target: "quality",
-          },
-        ],
-        nps: 10,
-      },
-    ],
-    time: "04/11/2024, 22:16:39",
-    id: "abdowb",
-    img: "https://m.media-amazon.com/images/I/51c+RwHEvsL._SY300_SX300_.jpg",
-  },
-];
+// const resArr = [
+//   {
+//     title:
+//       "Colgate MaxFresh Toothpaste, Red Gel Paste with Menthol for Super Fresh Breath, 600g, 150g X 4 (Spicy Fresh) (Combo Pack)",
+//     link: "https://www.amazon.in/Colgate-Max-Fresh-Spicy-Toothpaste/dp/B01NAZBI08/ref=sr_1_4_sspa?crid=V4SV0X83S4S&dib=eyJ2IjoiMSJ9.UlK0dGUmfNyb7ShewyJ0nSr83TckOJAvrsMapGLIfKediUll1AHLGAI7EDifkkqOmNI16x2KuQhyaa52UULqFZ7CJbNthaEllvL6-lPbqyS-a_JTxdAj3SoKptXgsLrI8JvmRLBviN8Y4G8rok0pfHS1JLPu_eZF1w1zGGYRV1OyTsrMYtXLk2a2ItrTEWgTOXfvXvxr85qTr6AJJ4AI8th6Z7sh6koiUkertGsowJ2tY3ZHKvhZh8Dc_9OtrJGl8XG6_oHJ29qjhCW2hM4FxRJ86riJNc1ZDCteIMf3BPs.La6rrQ9wtLemKAlDCQoRl3_asQ779DbjHoDjxCdZP-A&dib_tag=se&keywords=toothpaste&qid=1712862425&sprefix=toot%2Caps%2C229&sr=8-4-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&psc=1",
+//     data: [
+//       {
+//         overall: {
+//           p: 0.8065384615384616,
+//           n: 0.01230769230769231,
+//           nt: 0.17961538461538465,
+//         },
+//         datas: [
+//           {
+//             "0": {
+//               sentence:
+//                 "Very refreshing like a mouth freshener toothpaste seriously guys and also cleans your deepenly and whitening the teeth also go for it",
+//               isPositive: 0.95,
+//               isNegative: 0.01,
+//               isNeutral: 0.05,
+//               opinion: [],
+//             },
+//             "1": {
+//               sentence:
+//                 "The item purchased by this time has paid it's price with authentic cleaning capabilities and charming feeling even after a long time. ",
+//               isPositive: 0.91,
+//               isNegative: 0.01,
+//               isNeutral: 0.08,
+//               opinion: [
+//                 {
+//                   target: "cleaning capabilities",
+//                   assessment: [
+//                     { value: "authentic", sentiment: "positive", score: 1.0 },
+//                   ],
+//                 },
+//               ],
+//             },
+//             "2": {
+//               sentence: "Better to try it. ",
+//               isPositive: 0.54,
+//               isNegative: 0.03,
+//               isNeutral: 0.42,
+//               opinion: [],
+//             },
+//             "3": {
+//               sentence: "My suggestion to all valued customers.",
+//               isPositive: 0.45,
+//               isNegative: 0.01,
+//               isNeutral: 0.54,
+//               opinion: [],
+//             },
+//             "4": {
+//               sentence:
+//                 "Great experience with the brand and value for money too.",
+//               isPositive: 1.0,
+//               isNegative: 0.0,
+//               isNeutral: 0.0,
+//               opinion: [
+//                 {
+//                   target: "experience",
+//                   assessment: [
+//                     { value: "Great", sentiment: "positive", score: 1.0 },
+//                   ],
+//                 },
+//               ],
+//             },
+//             "5": {
+//               sentence: "Good. ",
+//               isPositive: 0.9,
+//               isNegative: 0.01,
+//               isNeutral: 0.08,
+//               opinion: [],
+//             },
+//             "6": {
+//               sentence: "Colgate is best for teeth,",
+//               isPositive: 0.89,
+//               isNegative: 0.02,
+//               isNeutral: 0.09,
+//               opinion: [
+//                 {
+//                   target: "Colgate",
+//                   assessment: [
+//                     { value: "best", sentiment: "positive", score: 1.0 },
+//                   ],
+//                 },
+//               ],
+//             },
+//             "7": {
+//               sentence: "Good product",
+//               isPositive: 0.99,
+//               isNegative: 0.0,
+//               isNeutral: 0.0,
+//               opinion: [
+//                 {
+//                   target: "product",
+//                   assessment: [
+//                     { value: "Good", sentiment: "positive", score: 1.0 },
+//                   ],
+//                 },
+//               ],
+//             },
+//             "8": {
+//               sentence: "good",
+//               isPositive: 0.99,
+//               isNegative: 0.0,
+//               isNeutral: 0.01,
+//               opinion: [],
+//             },
+//             "9": {
+//               sentence: "Just okay",
+//               isPositive: 0.85,
+//               isNegative: 0.02,
+//               isNeutral: 0.13,
+//               opinion: [],
+//             },
+//             "10": {
+//               sentence: "Best quality",
+//               isPositive: 0.99,
+//               isNegative: 0.0,
+//               isNeutral: 0.01,
+//               opinion: [
+//                 {
+//                   target: "quality",
+//                   assessment: [
+//                     { value: "Best", sentiment: "positive", score: 1.0 },
+//                   ],
+//                 },
+//               ],
+//             },
+//             "11": {
+//               sentence: "Rich taste. ",
+//               isPositive: 0.47,
+//               isNegative: 0.02,
+//               isNeutral: 0.51,
+//               opinion: [
+//                 {
+//                   target: "taste",
+//                   assessment: [
+//                     { value: "Rich", sentiment: "positive", score: 1.0 },
+//                   ],
+//                 },
+//               ],
+//             },
+//             "12": {
+//               sentence: "Full of mint. ",
+//               isPositive: 0.13,
+//               isNegative: 0.03,
+//               isNeutral: 0.84,
+//               opinion: [],
+//             },
+//             "13": {
+//               sentence: "Value for money.",
+//               isPositive: 0.94,
+//               isNegative: 0.01,
+//               isNeutral: 0.05,
+//               opinion: [],
+//             },
+//             "14": {
+//               sentence: "ok",
+//               isPositive: 0.51,
+//               isNegative: 0.04,
+//               isNeutral: 0.45,
+//               opinion: [],
+//             },
+//           },
+//           {
+//             "0": {
+//               sentence:
+//                 "Very refreshing like a mouth freshener toothpaste seriously guys and also cleans your deepenly and whitening the teeth also go for it",
+//               isPositive: 0.95,
+//               isNegative: 0.01,
+//               isNeutral: 0.05,
+//               opinion: [],
+//             },
+//             "1": {
+//               sentence:
+//                 "The item purchased by this time has paid it's price with authentic cleaning capabilities and charming feeling even after a long time. ",
+//               isPositive: 0.91,
+//               isNegative: 0.01,
+//               isNeutral: 0.08,
+//               opinion: [
+//                 {
+//                   target: "cleaning capabilities",
+//                   assessment: [
+//                     { value: "authentic", sentiment: "positive", score: 1.0 },
+//                   ],
+//                 },
+//               ],
+//             },
+//             "2": {
+//               sentence: "Better to try it. ",
+//               isPositive: 0.54,
+//               isNegative: 0.03,
+//               isNeutral: 0.42,
+//               opinion: [],
+//             },
+//             "3": {
+//               sentence: "My suggestion to all valued customers.",
+//               isPositive: 0.45,
+//               isNegative: 0.01,
+//               isNeutral: 0.54,
+//               opinion: [],
+//             },
+//             "4": {
+//               sentence:
+//                 "Great experience with the brand and value for money too.",
+//               isPositive: 1.0,
+//               isNegative: 0.0,
+//               isNeutral: 0.0,
+//               opinion: [
+//                 {
+//                   target: "experience",
+//                   assessment: [
+//                     { value: "Great", sentiment: "positive", score: 1.0 },
+//                   ],
+//                 },
+//               ],
+//             },
+//             "5": {
+//               sentence: "Good. ",
+//               isPositive: 0.9,
+//               isNegative: 0.01,
+//               isNeutral: 0.08,
+//               opinion: [],
+//             },
+//             "6": {
+//               sentence: "Colgate is best for teeth,",
+//               isPositive: 0.89,
+//               isNegative: 0.02,
+//               isNeutral: 0.09,
+//               opinion: [
+//                 {
+//                   target: "Colgate",
+//                   assessment: [
+//                     { value: "best", sentiment: "positive", score: 1.0 },
+//                   ],
+//                 },
+//               ],
+//             },
+//             "7": {
+//               sentence: "Good product",
+//               isPositive: 0.99,
+//               isNegative: 0.0,
+//               isNeutral: 0.0,
+//               opinion: [
+//                 {
+//                   target: "product",
+//                   assessment: [
+//                     { value: "Good", sentiment: "positive", score: 1.0 },
+//                   ],
+//                 },
+//               ],
+//             },
+//             "8": {
+//               sentence: "good",
+//               isPositive: 0.99,
+//               isNegative: 0.0,
+//               isNeutral: 0.01,
+//               opinion: [],
+//             },
+//             "9": {
+//               sentence: "Just okay",
+//               isPositive: 0.85,
+//               isNegative: 0.02,
+//               isNeutral: 0.13,
+//               opinion: [],
+//             },
+//             "10": {
+//               sentence: "Best quality",
+//               isPositive: 0.99,
+//               isNegative: 0.0,
+//               isNeutral: 0.01,
+//               opinion: [
+//                 {
+//                   target: "quality",
+//                   assessment: [
+//                     { value: "Best", sentiment: "positive", score: 1.0 },
+//                   ],
+//                 },
+//               ],
+//             },
+//           },
+//         ],
+//         aspects: [
+//           {
+//             value: "authentic",
+//             sentiment: "positive",
+//             score: 1.0,
+//             target: "cleaning capabilities",
+//           },
+//           {
+//             value: "Great",
+//             sentiment: "positive",
+//             score: 1.0,
+//             target: "experience",
+//           },
+//           {
+//             value: "best",
+//             sentiment: "positive",
+//             score: 1.0,
+//             target: "Colgate",
+//           },
+//           {
+//             value: "Good",
+//             sentiment: "positive",
+//             score: 1.0,
+//             target: "product",
+//           },
+//           {
+//             value: "Best",
+//             sentiment: "positive",
+//             score: 1.0,
+//             target: "quality",
+//           },
+//           { value: "Rich", sentiment: "positive", score: 1.0, target: "taste" },
+//           {
+//             value: "authentic",
+//             sentiment: "positive",
+//             score: 1.0,
+//             target: "cleaning capabilities",
+//           },
+//           {
+//             value: "Great",
+//             sentiment: "positive",
+//             score: 1.0,
+//             target: "experience",
+//           },
+//           {
+//             value: "best",
+//             sentiment: "positive",
+//             score: 1.0,
+//             target: "Colgate",
+//           },
+//           {
+//             value: "Good",
+//             sentiment: "positive",
+//             score: 1.0,
+//             target: "product",
+//           },
+//           {
+//             value: "Best",
+//             sentiment: "positive",
+//             score: 1.0,
+//             target: "quality",
+//           },
+//         ],
+//         nps: 10,
+//       },
+//     ],
+//     time: "04/11/2024, 22:16:39",
+//     id: "abdowb",
+//     img: "https://m.media-amazon.com/images/I/51c+RwHEvsL._SY300_SX300_.jpg",
+//   },
+// ];
 
 const dataFormatter = (number: number) =>
   `${Intl.NumberFormat("us").format(number).toString()}`;
@@ -379,6 +379,10 @@ const dataFormatter = (number: number) =>
 type Props = {};
 
 const HistoryItem = (props: Props) => {
+  const [resArr, setResArr] = useState([]);
+  // const obj = JSON.parse(sessionStorage.getItem("newData"));
+  setResArr(sessionStorage.getItem("newData"));
+
   const chartdata1 = [
     {
       date: "Jan 22",
@@ -441,7 +445,6 @@ const HistoryItem = (props: Props) => {
       Negative: 0,
     },
   ];
-
   interface MyData {
     overall: any;
   }
@@ -468,23 +471,24 @@ const HistoryItem = (props: Props) => {
         <div
           className={`grid md:grid-cols-3 grid-cols-1 relative z-[20] mt-20`}
         >
-          {resArr.map((values, i) => {
-            let splitString = values.time.split(",");
+          {Array.isArray(resArr) &&
+            resArr.map((values, i) => {
+              let splitString = values.time.split(",");
 
-            return (
-              <div
-                key={i}
-                className="text-white fixed right-10 xl:w-[420px] lg:w-[300px] md:w-[200px] w-[50px] flex flex-col gap-4"
-              >
-                <img
-                  src={values.img}
-                  className="object-cover w-full h-full rounded-lg"
-                  alt=""
-                />
-                <h1>{values.title}</h1>
-              </div>
-            );
-          })}
+              return (
+                <div
+                  key={i}
+                  className="text-white fixed right-10 xl:w-[420px] lg:w-[300px] md:w-[200px] w-[50px] flex flex-col gap-4"
+                >
+                  <img
+                    src={values.img}
+                    className="object-cover w-full h-full rounded-lg"
+                    alt=""
+                  />
+                  <h1>{values.title}</h1>
+                </div>
+              );
+            })}
           <div className="col-span-2">
             <div className="grid grid-cols-2 gap-6 justify-center mt-8">
               <Card
@@ -614,6 +618,7 @@ const HistoryItem = (props: Props) => {
                     className="shadow-md rounded-lg mx-auto max-w-md"
                     decoration="left"
                     decorationColor="blue"
+                    key="1"
                   >
                     <div className="flex flex-col items-center justify-center gap-4">
                       <p className="text-gray-300 font-semibold text-center">
@@ -673,6 +678,7 @@ const HistoryItem = (props: Props) => {
                     className="shadow-md rounded-lg mx-auto max-w-md"
                     decoration="left"
                     decorationColor="blue"
+                    key="2"
                   >
                     <div className="flex flex-col items-center justify-center gap-4">
                       <p className="text-gray-300 font-semibold text-center">
@@ -729,6 +735,7 @@ const HistoryItem = (props: Props) => {
               {Object.values(myData?.aspects ?? {}).map((value: any) => {
                 return (
                   <Card
+                    key="3"
                     className="shadow-md rounded-lg mx-auto max-w-md flex flex-col gap-2"
                     decoration="left"
                     decorationColor="blue"
