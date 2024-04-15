@@ -786,8 +786,8 @@ const History = () => {
               let splitString = values.time.split(",");
               return (
                 <li key={i}>
-                  <button onClick={() => submitnext(i)} className="">
-                    <div className="my-4 flex items-center">
+                  <button onClick={() => submitnext(i)} className="w-full">
+                    <div className="text-start my-4 flex items-center">
                       <div className="flex-shrink-0">
                         <Image
                           src={values.image}

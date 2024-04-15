@@ -790,7 +790,7 @@ const HistoryItem = (props: Props) => {
             </div>
           </div>
 
-          <div className="text-white fixed right-10 xl:w-[420px] lg:w-[300px] md:w-[200px] w-[50px] flex flex-col gap-4">
+          {/* <div className="text-white fixed right-10 xl:w-[420px] lg:w-[300px] md:w-[200px] w-[50px] flex flex-col gap-4">
             {resArr.map((values, i) => {
               let splitString = values.time.split(",");
 
@@ -808,7 +808,7 @@ const HistoryItem = (props: Props) => {
                 </div>
               );
             })}
-          </div>
+          </div> */}
         </div>
       ) : (
         <div className="my-2 md:flex flex-row justify-between relative z-[20] mt-20">
